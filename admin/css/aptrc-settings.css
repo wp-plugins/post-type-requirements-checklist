@@ -1,0 +1,20 @@
+
+.settings_page_aptrc label {
+	color: #B2B2B2;
+}
+
+.settings_page_aptrc input[type=checkbox]:checked + label {
+	color: #444;
+}
+
+.settings_page_aptrc .form-table tr select {
+	position: inline-block;
+	margin-top: -30px;
+	padding-bottom: 0px !important;
+	margin-bottom: 0px;
+}
+.settings_page_aptrc .form-table label#dropdown {
+	position: absolute;
+	margin-top: -15px;
+	padding-left: 10px;
+}
