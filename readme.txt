@@ -13,13 +13,13 @@ Allows admins to require content to be entered before a page/post can be publish
 == Description ==
 
 Post Type Requirements Checklist allows admins to require content to be entered before a page/post can be published.  Currently it supports requirements for the following areas on the add/edit screen:
+** **
 * title
 * WYSIWYG editor
 * featured image
 * excerpt
 * categories (allows for minimum required number of categories)
 * tags (allows for minimum required number of tags)
-* custom fields
 
 PTRC uses OOP standards to add options only for those metaboxes which are supported for each post type and to execute code only on those pages where it is needed.  It works especially well for sites with many custom post types that require content to be entered in a specific way (ie. when a post type requires a specific page template or when the absence of a featured image will break the intended look of a post).  Think of any theme or plugin that supports an image slider powered by a required featured image, and you can surely see where PTRC can come in handy.
 
@@ -59,8 +59,8 @@ Simply delete this plugin to remove all data associated with it.  Deactivating t
 
 == Screenshots ==
 
-1. Settings page automatically recognizes post types and supported post type features.
-2. Non-intrusive instructive text can be easily added to multiple locations for any post type.
+1. Publishing/updating is disabled until all requirements are met.
+2. Once requirements are met, the user can publish/update.
 
 == Changelog ==
 
