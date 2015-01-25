@@ -4,7 +4,7 @@ Author URI: http://dauid.us
 Tags: requirements, require, required, requirement, publish, post type, metabox, wysiwyg, featured image, author, excerpt
 Requires at least: 3.1
 Tested up to: 4.1
-Stable tag: 1.0
+Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -64,10 +64,16 @@ Simply delete this plugin to remove all data associated with it.  Deactivating t
 
 == Changelog ==
 
+= 1.0.1 =
+* small change to checklist style
+
 = 1.0 =
 * initial release
 
 == Upgrade Notice ==
+
+= 1.0.1 =
+Adds a small change to the checklist style that plays more nicely with text added to the publish meatball via other plugins.
 
 = 1.0 =
 initial release

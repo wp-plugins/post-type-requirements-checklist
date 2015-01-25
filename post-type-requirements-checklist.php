@@ -14,7 +14,7 @@
  * Plugin Name:       Post Type Requirements Checklist
  * Plugin URI:        http://dauid.us
  * Description:       Requirements
- * Version:           1.0
+ * Version:           1.0.1
  * Author:            Dave Winter
  * Author URI:        http://dauid.us
  * Text Domain: 	  post-type-requirements-checklist
