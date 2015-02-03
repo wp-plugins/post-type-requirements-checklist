@@ -4,7 +4,7 @@ Author URI: http://dauid.us
 Tags: requirements, require, required, requirement, publish, post type, metabox, wysiwyg, featured image, author, excerpt
 Requires at least: 3.1
 Tested up to: 4.1
-Stable tag: 1.0.1
+Stable tag: 1.0.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -63,6 +63,9 @@ Simply delete this plugin to remove all data associated with it.  Deactivating t
 2. Once requirements are met, the user can publish/update.
 
 == Changelog ==
+
+= 1.0.2 =
+* hide requirement checklist for post types that don’t utilize it
 
 = 1.0.1 =
 * small change to checklist style

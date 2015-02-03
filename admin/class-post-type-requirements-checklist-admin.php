@@ -199,6 +199,7 @@ class Post_Type_Requirements_Checklist_Admin {
 		$options = get_option( $this->plugin_slug . '_' . $post_type );
 
 		// checkbox title
+		
 		echo '<div id="requirements_list"><span id="rltop">' . __( 'Requirements Checklist:', $this->plugin_slug ) . '</span>';
 
 
@@ -525,13 +526,18 @@ class Post_Type_Requirements_Checklist_Admin {
 					jQuery( "#publish" ).show();
 					jQuery( "#rlbot" ).hide();
 					jQuery( "#requirements_list" ).css( "background-color", "transparent" );
-				}
-
-				else {
+				} else {
 					jQuery( "#publish" ).hide();
 					jQuery( "#rlbot" ).show();
 					jQuery( "#requirements_list" ).css( "background-color", "#ffffe6" );
 				}
+
+				if ( number.length == 0 ) {
+					jQuery( "#requirements_list" ).hide();
+				} else {
+					jQuery( "#requirements_list" ).show();
+				}
+
 			}
 
 			// hide by default
