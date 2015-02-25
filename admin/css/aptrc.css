@@ -20,6 +20,10 @@
 .submitbox #requirements_list input[type=checkbox] + label {
 	margin: -2px 0 0 0;
 	cursor: default;
+	text-transform: capitalize;
+}
+.submitbox #requirements_list input[type=checkbox] + label em {
+	text-transform: lowercase;
 }
 .submitbox #requirements_list input[type=checkbox] + label span {
 	margin: -2px 4px 0px 15px !important;
@@ -31,12 +35,17 @@
 	line-height: 12px;
 	cursor: default;
 }
+
 /* change label color based on value */
 .submitbox #requirements_list input[type=checkbox]:checked + label {
 	color: #009711;
 }
 .submitbox #requirements_list input[type=checkbox]:checked + label span {
 	background: url('../images/yes.png') no-repeat 0px 2px;
+}
+
+.submitbox #requirements_list #custom-taxonomies {
+	margin-top: 10px;
 }
 
 .submitbox #requirements_list span#rlbot {

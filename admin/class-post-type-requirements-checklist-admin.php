@@ -421,7 +421,7 @@ class Post_Type_Requirements_Checklist_Admin {
 			}
 			else {
 				$cat_num_html = ' (' . __( 'minimum', $this->plugin_slug) . ' ' . $cat_num . ')';
-				echo $cat_num_html;
+				echo '<em>'.$cat_num_html.'</em>';
 			}
 
 			echo '</label><br/>';
@@ -471,7 +471,7 @@ class Post_Type_Requirements_Checklist_Admin {
 			}
 			else {
 				$tag_num_html = ' (' . __( 'minimum', $this->plugin_slug) . ' ' . $tag_num . ')';
-				echo $tag_num_html;
+				echo '<em>'.$tag_num_html.'</em>';
 			}
 
 			echo '</label><br/>';
@@ -483,7 +483,7 @@ class Post_Type_Requirements_Checklist_Admin {
 				function checkTags() {
 
 					var tag_num_check = '<?php echo $tag_num; ?>';
-					var tagschecked = jQuery(".ntdelbutton").length;
+					var tagschecked = jQuery("#tagsdiv-post_tag .ntdelbutton").length;
 
 					if ( ( tagschecked == tag_num_check ) || ( tagschecked > tag_num_check ) ) {
 						jQuery( "input[type='checkbox'][name='tags_checkbox']").prop('checked', true);
@@ -504,6 +504,121 @@ class Post_Type_Requirements_Checklist_Admin {
 			<?php
 			// logic for minimum number of tags
 		}
+
+		/**
+		 * Custom Taxonomies
+		 *
+		 * @since 2.0
+		 */
+		$argums = array(
+		    'public'   => true,
+		    '_builtin' => false
+		); 
+		$outputs = 'names'; // or objects
+		$operators = 'and'; // 'and' or 'or'
+		$taxonomy_names = get_taxonomies( $argums, $outputs, $operators );
+		$x = '1';
+		echo '<div id="custom-taxonomies">';
+		foreach ( $taxonomy_names as $tn ) {
+
+			if ( is_object_in_taxonomy( $post_type, $tn ) ) {
+				if ( is_taxonomy_hierarchical( $tn ) ) {
+
+					if ( isset( $options['hierarchical_check_'.$x.''] ) && ! empty( $options['hierarchical_check_'.$x.''] ) ) {				
+						echo '<span class="reqcb">';
+						echo '<input name="'.$tn.'_checkbox" id="'.$tn.'_checkbox" type="checkbox" onclick="return false;" onkeydown="return false;" /><label for="'.$tn.'_checkbox"><span></span> ' . __( ''.$tn.'s', $this->plugin_slug . '');
+						
+						$cat_num = $options['hierarchical_dropdown_'.$x.''];
+
+						if ( $cat_num == '1' ) {
+						}
+						else {
+							$cat_num_html = ' (' . __( 'minimum', $this->plugin_slug) . ' ' . $cat_num . ')';
+							echo '<em>'.$cat_num_html.'</em>';
+						}
+
+						echo '</label><br/>';
+						echo '</span>';
+						?>
+
+						<script>
+
+							var name = '<?php echo $tn; ?>';
+
+							function hier() {
+
+								var cat_num_check = '<?php echo $cat_num; ?>';
+								var catchecked = jQuery("#<?php echo $tn; ?>checklist input[type='checkbox']:checked").length;
+
+								if ( ( catchecked == cat_num_check ) || ( catchecked > cat_num_check ) ) {
+									jQuery( "input[type='checkbox'][name='<?php echo $tn; ?>_checkbox']").prop('checked', true);
+								}
+								else {
+									jQuery( "input[type='checkbox'][name='<?php echo $tn; ?>_checkbox']").prop('checked', false);
+								}
+							}
+
+							// run when page first loads
+							hier();
+							// run on excerpt input
+							setInterval(hier,500);
+							
+						</script>
+
+						<?php
+						// logic for minimum number of categories
+					}
+
+				}
+				else {
+					if ( isset( $options['flat_check_'.$x.''] ) && ! empty( $options['flat_check_'.$x.''] ) ) {				
+						echo '<span class="reqcb">';
+						echo '<input name="'.$tn.'_checkbox" id="'.$tn.'_checkbox" type="checkbox" onclick="return false;" onkeydown="return false;" /><label for="'.$tn.'_checkbox"><span></span> ' . __( ''.$tn.'s', $this->plugin_slug . '');
+						
+						$tag_num = $options['flat_dropdown_'.$x.''];
+
+						if ( $tag_num == '1' ) {
+						}
+						else {
+							$tag_num_html = ' (' . __( 'minimum', $this->plugin_slug) . ' ' . $tag_num . ')';
+							echo '<em>'.$tag_num_html.'</em>';
+						}
+
+						echo '</label><br/>';
+						echo '</span>';
+						?>
+
+						<script>
+
+							function flat() {
+
+								var tag_num_check = '<?php echo $tag_num; ?>';
+								var tagschecked = jQuery("#tagsdiv-<?php echo $tn; ?> .ntdelbutton").length;
+
+								if ( ( tagschecked == tag_num_check ) || ( tagschecked > tag_num_check ) ) {
+									jQuery( "input[type='checkbox'][name='<?php echo $tn; ?>_checkbox']").prop('checked', true);
+								}
+								else {
+									jQuery( "input[type='checkbox'][name='<?php echo $tn; ?>_checkbox']").prop('checked', false);
+								}
+							}
+
+							// run when page first loads
+							flat();
+							// run on excerpt input
+							setInterval(flat,500);
+							
+						</script>
+
+						<?php
+						// logic for minimum number of tags
+					}
+
+				}
+			}
+			$x++;
+		}
+		echo '</div>';
 
 
 		echo '<span id="rlbot">' . __( 'Publishing disabled until requirements met', $this->plugin_slug ) . '</span>';
@@ -542,7 +657,9 @@ class Post_Type_Requirements_Checklist_Admin {
 
 			// hide by default
 			jQuery( "#publish" ).hide();
-			// check every second
+			// run when page first loads
+			hideShowPublish();
+			// check every helf second
 			setInterval(hideShowPublish,500);
 		</script>
 		<?php

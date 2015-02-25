@@ -3,8 +3,8 @@ Contributors: dauidus
 Author URI: http://dauid.us
 Tags: requirements, require, required, requirement, publish, post type, metabox, wysiwyg, featured image, author, excerpt
 Requires at least: 3.1
-Tested up to: 4.1
-Stable tag: 1.0.2
+Tested up to: 4.1.1
+Stable tag: 2.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -18,8 +18,9 @@ Post Type Requirements Checklist allows admins to require content to be entered 
 * WYSIWYG editor
 * featured image
 * excerpt
-* categories (allows for minimum required number of categories)
-* tags (allows for minimum required number of tags)
+* categories (allows for minimum required number of categories, up to 3)
+* tags (allows for minimum required number of tags, up to 5)
+* up to 5 custom taxonomies per post type (allows for minimum required number of categories/tags, as detailed above)
 
 PTRC uses OOP standards to add options only for those metaboxes which are supported for each post type and to execute code only on those pages where it is needed.  It works especially well for sites with many custom post types that require content to be entered in a specific way (ie. when a post type requires a specific page template or when the absence of a featured image will break the intended look of a post).  Think of any theme or plugin that supports an image slider powered by a required featured image, and you can surely see where PTRC can come in handy.
 
@@ -64,6 +65,13 @@ Simply delete this plugin to remove all data associated with it.  Deactivating t
 
 == Changelog ==
 
+= 2.0 =
+* major release with new features
+* add support for custom taxonomies (up to 5 per post type)
+* rewrite some plugin logic for scalability
+* slight changes to checklist style for readability
+* slight changes to settings page style
+
 = 1.0.2 =
 * hide requirement checklist for post types that don’t utilize it
 
@@ -75,8 +83,11 @@ Simply delete this plugin to remove all data associated with it.  Deactivating t
 
 == Upgrade Notice ==
 
+= 2.0 =
+Major release with new features.  Users are strongly urged to update.
+
 = 1.0.1 =
-Adds a small change to the checklist style that plays more nicely with text added to the publish meatball via other plugins.
+Adds a small change to the checklist style that plays more nicely with text added to the publish metabox via other plugins.
 
 = 1.0 =
 initial release

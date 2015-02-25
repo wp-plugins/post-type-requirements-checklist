@@ -85,7 +85,7 @@ class post_type_requirements_checklist_settings {
 			$args = array( $section, get_option( $section ) );
 			add_settings_section(
 				$pt,
-				sprintf( __( 'Set content check to requirements for all %s', $this->plugin_slug ), $post_object->labels->name ),
+				sprintf( __( 'Set requirements for %s', $this->plugin_slug ), $post_object->labels->name ),
 				'',
 				$section
 			);
@@ -145,58 +145,99 @@ class post_type_requirements_checklist_settings {
 				);
 			}			*/
 
-			if ( !($pt == 'page') ) {
+			if ( is_object_in_taxonomy( $pt, 'category' ) ) {
+				add_settings_field(
+					'categories_check',
+					__( 'Categories:', $this->plugin_slug ),
+					array( $this, 'categories_check_callback' ),
+					$section,
+					$pt,
+					$args
+				);
 
-				if ( is_object_in_taxonomy( $pt, 'category' ) ) {
-					add_settings_field(
-						'categories_check',
-						__( 'Categories:', $this->plugin_slug ),
-						array( $this, 'categories_check_callback' ),
-						$section,
-						$pt,
-						$args
-					);
+				add_settings_field(
+					'categories_dropdown',
+					__( '', $this->plugin_slug ),
+					array( $this, 'categories_dropdown_callback' ),
+					$section,
+					$pt,
+					$args
+				);
+			}
 
-					add_settings_field(
-						'categories_dropdown',
-						__( '', $this->plugin_slug ),
-						array( $this, 'categories_dropdown_callback' ),
-						$section,
-						$pt,
-						$args
-					);
+			if ( is_object_in_taxonomy( $pt, 'post_tag' ) ) {
+				add_settings_field(
+					'tags_check',
+					__( 'Tags:', $this->plugin_slug ),
+					array( $this, 'tags_check_callback' ),
+					$section,
+					$pt,
+					$args
+				);
+
+				add_settings_field(
+					'tags_dropdown',
+					__( '', $this->plugin_slug ),
+					array( $this, 'tags_dropdown_callback' ),
+					$section,
+					$pt,
+					$args
+				);
+			}	
+
+			$argums = array(
+			    'public'   => true,
+			    '_builtin' => false
+			); 
+			$outputs = 'names'; // or objects
+			$operators = 'and'; // 'and' or 'or'
+			$taxonomy_names = get_taxonomies( $argums, $outputs, $operators );
+			$x = '1';
+			foreach ( $taxonomy_names as $tn ) {
+
+				if ( is_object_in_taxonomy( $pt, $tn ) ) {
+					if ( is_taxonomy_hierarchical( $tn ) ) {
+						add_settings_field(
+							'hierarchical_check_'.$x,
+							__( $tn.'s <span>(custom category):</span>', $this->plugin_slug ),
+							array( $this, 'hierarchical_check_callback_'.$x ),
+							$section,
+							$pt,
+							$args
+						);
+
+						add_settings_field(
+							'hierarchical_dropdown_'.$x,
+							__( '', $this->plugin_slug ),
+							array( $this, 'hierarchical_dropdown_callback_'.$x ),
+							$section,
+							$pt,
+							$args
+						);
+					}
+
+					else {
+						add_settings_field(
+							'flat_check'.$x,
+							__( $tn.'s <span>(custom tag):</span>', $this->plugin_slug ),
+							array( $this, 'flat_check_callback_'.$x ),
+							$section,
+							$pt,
+							$args
+						);
+
+						add_settings_field(
+							'flat_dropdown'.$x,
+							__( '', $this->plugin_slug ),
+							array( $this, 'flat_dropdown_callback_'.$x ),
+							$section,
+							$pt,
+							$args
+						);
+					}
 				}
 
-				if ( is_object_in_taxonomy( $pt, 'post_tag' ) ) {
-					add_settings_field(
-						'tags_check',
-						__( 'Tags Metabox:', $this->plugin_slug ),
-						array( $this, 'tags_check_callback' ),
-						$section,
-						$pt,
-						$args
-					);
-
-					add_settings_field(
-						'tags_dropdown',
-						__( '', $this->plugin_slug ),
-						array( $this, 'tags_dropdown_callback' ),
-						$section,
-						$pt,
-						$args
-					);
-				}			
-
-/*				if ( post_type_supports( $pt, 'post-formats' )) {
-					add_settings_field(
-						'postformats_check',
-						__( 'Post Format:', $this->plugin_slug ),
-						array( $this, 'postformats_check_callback' ),
-						$section,
-						$pt,
-						$args
-					);
-				}		*/
+				$x++;	
 				
 			}
 
@@ -214,7 +255,6 @@ class post_type_requirements_checklist_settings {
 
 		$checkhtml = '<input type="checkbox" id="title_check" name="' . $output . '" value="1"' . checked( 1, $value, false ) . ' />';
 		$checkhtml .= '<label for="title_check"> ' . __( 'check to require', $this->plugin_slug ) . '</label>';
-		// $checkhtml .= '<p class="description">' . __( 'A title must be set in order to publish.', $this->plugin_slug ) . '</p><hr>';
 
 		echo $checkhtml;
 
@@ -227,7 +267,6 @@ class post_type_requirements_checklist_settings {
 
 		$checkhtml = '<input type="checkbox" id="editor_check" name="' . $output . '" value="1"' . checked( 1, $value, false ) . ' />';
 		$checkhtml .= '<label for="editor_check"> ' . __( 'check to require', $this->plugin_slug ) . '</label>';
-		// $checkhtml .= '<p class="description">' . __( 'WYSIWYG editor must have content in order to publish.', $this->plugin_slug ) . '</p><hr>';
 
 		echo $checkhtml;
 
@@ -240,7 +279,6 @@ class post_type_requirements_checklist_settings {
 
 		$checkhtml = '<input type="checkbox" id="thumbnail_check" name="' . $output . '" value="1"' . checked( 1, $value, false ) . ' />';
 		$checkhtml .= '<label for="thumbnail_check"> ' . __( 'check to require', $this->plugin_slug ) . '</label>';
-		// $checkhtml .= '<p class="description">' . __( 'A featured image must be added in order to publish.', $this->plugin_slug ) . '</p><hr>';
 
 		echo $checkhtml;
 
@@ -253,7 +291,6 @@ class post_type_requirements_checklist_settings {
 
 		$checkhtml = '<input type="checkbox" id="excerpt_check" name="' . $output . '" value="1"' . checked( 1, $value, false ) . ' />';
 		$checkhtml .= '<label for="excerpt_check"> ' . __( 'check to require', $this->plugin_slug ) . '</label>';
-		// $checkhtml .= '<p class="description">' . __( 'A custom excerpt must be added in order to publish.', $this->plugin_slug ) . '</p><hr>';
 
 		echo $checkhtml;
 
@@ -266,7 +303,6 @@ class post_type_requirements_checklist_settings {
 
 		$checkhtml = '<input type="checkbox" id="customfields_check" name="' . $output . '" value="1"' . checked( 1, $value, false ) . ' />';
 		$checkhtml .= '<label for="customfields_check"> ' . __( 'check to require', $this->plugin_slug ) . '</label>';
-		// $checkhtml .= '<p class="description">' . __( 'Something in order to publish.', $this->plugin_slug ) . '</p><hr>';
 
 		echo $checkhtml;
 
@@ -279,7 +315,6 @@ class post_type_requirements_checklist_settings {
 
 		$checkhtml = '<input type="checkbox" id="categories_check" name="' . $output . '" value="1"' . checked( 1, $value, false ) . ' />';
 		$checkhtml .= '<label for="categories_check"> ' . __( 'check to require', $this->plugin_slug ) . '</label>';
-		// $checkhtml .= '<p class="description">' . __( 'A category/categories must be set in order to publish.', $this->plugin_slug ) . '</p>';
 
 		echo $checkhtml;
 
@@ -309,7 +344,6 @@ class post_type_requirements_checklist_settings {
 
 		$checkhtml = '<input type="checkbox" id="tags_check" name="' . $output . '" value="1"' . checked( 1, $value, false ) . ' />';
 		$checkhtml .= '<label for="tags_check"> ' . __( 'check to require', $this->plugin_slug ) . '</label>';
-		// $checkhtml .= '<p class="description">' . __( 'A tag/tags must be set in order to publish.  Select the minimum check to required number of tags to be set.', $this->plugin_slug ) . '</p><hr>';
 
 		echo $checkhtml;
 
@@ -334,20 +368,253 @@ class post_type_requirements_checklist_settings {
 
 		} // end tags_dropdown_callback
 
-/*	public function postformats_check_callback( $args ) {
+	
+//1
+		public function hierarchical_check_callback_1( $args ) {
 
-		$output = $args[0].'[postformats_check]';
-		$value  = isset( $args[1]['postformats_check'] ) ? $args[1]['postformats_check'] : '';
+			$output = $args[0].'[hierarchical_check_1]';
+			$value  = isset( $args[1]['hierarchical_check_1'] ) ? $args[1]['hierarchical_check_1'] : '';
 
-		$checkhtml = '<input type="checkbox" id="postformats_check" name="' . $output . '" value="1"' . checked( 1, $value, false ) . ' />';
-		$checkhtml .= '<label for="postformats_check"> ' . __( 'check to require', $this->plugin_slug ) . '</label>';
-		// $checkhtml .= '<p class="description">' . __( 'A post format must be set in order to publish.  This option will unselect all post format radio fields by default.', $this->plugin_slug ) . '</p><hr>';
+			$checkhtml = '<input type="checkbox" id="hierarchical_check_1" name="' . $output . '" value="1"' . checked( 1, $value, false ) . ' />';
+			$checkhtml .= '<label for="hierarchical_check_1"> ' . __( 'check to require', $this->plugin_slug ) . '</label>';
 
-		echo $checkhtml;
+			echo $checkhtml;
 
-	} // end postformats_check_callback		*/
+		} // end hierarchical_check_callback_1
 
-	//slug
+			public function hierarchical_dropdown_callback_1( $args ) {
+
+				$output = $args[0].'[hierarchical_dropdown_1]';
+				$value  = isset( $args[1]['hierarchical_dropdown_1'] ) ? $args[1]['hierarchical_dropdown_1'] : '';
+
+				$html = '<select id="hierarchical_dropdown_1" name="' . $output . '">';
+		        $html .= '<option value="1"' . selected( 1, $value, false) . '>1</option>';
+		        $html .= '<option value="2"' . selected( 2, $value, false) . '>2</option>';
+		        $html .= '<option value="3"' . selected( 3, $value, false) . '>3</option>';
+		    	$html .= '</select>';
+
+		    	$html .= '<label id="dropdown" for="hierarchical_dropdown_1"> ' . __( 'set minimum number of required custom categories', $this->plugin_slug ) . '</label>';
+		     
+		    	echo $html;
+
+			} // end hierarchical_dropdown_callback_1
+
+		public function flat_check_callback_1( $args ) {
+
+			$output = $args[0].'[flat_check_1]';
+			$value  = isset( $args[1]['flat_check_1'] ) ? $args[1]['flat_check_1'] : '';
+
+			$checkhtml = '<input type="checkbox" id="flat_check_1" name="' . $output . '" value="1"' . checked( 1, $value, false ) . ' />';
+			$checkhtml .= '<label for="flat_check_1"> ' . __( 'check to require', $this->plugin_slug ) . '</label>';
+
+			echo $checkhtml;
+
+		} // end flat_check_callback_1
+
+			public function flat_dropdown_callback_1( $args ) {
+
+				$output = $args[0].'[flat_dropdown_1]';
+				$value  = isset( $args[1]['flat_dropdown_1'] ) ? $args[1]['flat_dropdown_1'] : '';
+
+				$html = '<select id="flat_dropdown_1" name="' . $output . '">';
+		        $html .= '<option value="1"' . selected( 1, $value, false) . '>1</option>';
+		        $html .= '<option value="2"' . selected( 2, $value, false) . '>2</option>';
+		        $html .= '<option value="3"' . selected( 3, $value, false) . '>3</option>';
+		        $html .= '<option value="4"' . selected( 4, $value, false) . '>4</option>';
+	        	$html .= '<option value="5"' . selected( 5, $value, false) . '>5</option>';
+		    	$html .= '</select>';
+
+		    	$html .= '<label id="dropdown" for="flat_dropdown_1"> ' . __( 'set minimum number of required custom tags', $this->plugin_slug ) . '</label>';
+		     
+		    	echo $html;
+
+			} // end flat_dropdown_callback_2
+
+//2
+		public function hierarchical_check_callback_2( $args ) {
+
+			$output = $args[0].'[hierarchical_check_2]';
+			$value  = isset( $args[1]['hierarchical_check_2'] ) ? $args[1]['hierarchical_check_2'] : '';
+
+			$checkhtml = '<input type="checkbox" id="hierarchical_check_2" name="' . $output . '" value="1"' . checked( 1, $value, false ) . ' />';
+			$checkhtml .= '<label for="hierarchical_check_2"> ' . __( 'check to require', $this->plugin_slug ) . '</label>';
+
+			echo $checkhtml;
+
+		} // end hierarchical_check_callback_2
+
+			public function hierarchical_dropdown_callback_2( $args ) {
+
+				$output = $args[0].'[hierarchical_dropdown_2]';
+				$value  = isset( $args[1]['hierarchical_dropdown_2'] ) ? $args[1]['hierarchical_dropdown_2'] : '';
+
+				$html = '<select id="hierarchical_dropdown_2" name="' . $output . '">';
+		        $html .= '<option value="1"' . selected( 1, $value, false) . '>1</option>';
+		        $html .= '<option value="2"' . selected( 2, $value, false) . '>2</option>';
+		        $html .= '<option value="3"' . selected( 3, $value, false) . '>3</option>';
+		    	$html .= '</select>';
+
+		    	$html .= '<label id="dropdown" for="hierarchical_dropdown_2"> ' . __( 'set minimum number of required custom categories', $this->plugin_slug ) . '</label>';
+		     
+		    	echo $html;
+
+			} // end hierarchical_dropdown_callback_1
+
+		public function flat_check_callback_2( $args ) {
+
+			$output = $args[0].'[flat_check_2]';
+			$value  = isset( $args[1]['flat_check_2'] ) ? $args[1]['flat_check_2'] : '';
+
+			$checkhtml = '<input type="checkbox" id="flat_check_2" name="' . $output . '" value="1"' . checked( 1, $value, false ) . ' />';
+			$checkhtml .= '<label for="flat_check_2"> ' . __( 'check to require', $this->plugin_slug ) . '</label>';
+
+			echo $checkhtml;
+
+		} // end flat_check_callback_2
+
+			public function flat_dropdown_callback_2( $args ) {
+
+				$output = $args[0].'[flat_dropdown_2]';
+				$value  = isset( $args[1]['flat_dropdown_2'] ) ? $args[1]['flat_dropdown_2'] : '';
+
+				$html = '<select id="flat_dropdown_2" name="' . $output . '">';
+		        $html .= '<option value="1"' . selected( 1, $value, false) . '>1</option>';
+		        $html .= '<option value="2"' . selected( 2, $value, false) . '>2</option>';
+		        $html .= '<option value="3"' . selected( 3, $value, false) . '>3</option>';
+		        $html .= '<option value="4"' . selected( 4, $value, false) . '>4</option>';
+	        	$html .= '<option value="5"' . selected( 5, $value, false) . '>5</option>';
+		    	$html .= '</select>';
+
+		    	$html .= '<label id="dropdown" for="flat_dropdown_2"> ' . __( 'set minimum number of required custom tags', $this->plugin_slug ) . '</label>';
+		     
+		    	echo $html;
+
+			} // end flat_dropdown_callback_2
+
+//3
+		public function hierarchical_check_callback_3( $args ) {
+
+			$output = $args[0].'[hierarchical_check_3]';
+			$value  = isset( $args[1]['hierarchical_check_3'] ) ? $args[1]['hierarchical_check_3'] : '';
+
+			$checkhtml = '<input type="checkbox" id="hierarchical_check_3" name="' . $output . '" value="1"' . checked( 1, $value, false ) . ' />';
+			$checkhtml .= '<label for="hierarchical_check_3"> ' . __( 'check to require', $this->plugin_slug ) . '</label>';
+
+			echo $checkhtml;
+
+		} // end hierarchical_check_callback_3
+
+			public function hierarchical_dropdown_callback_3( $args ) {
+
+				$output = $args[0].'[hierarchical_dropdown_3]';
+				$value  = isset( $args[1]['hierarchical_dropdown_3'] ) ? $args[1]['hierarchical_dropdown_3'] : '';
+
+				$html = '<select id="hierarchical_dropdown_3" name="' . $output . '">';
+		        $html .= '<option value="1"' . selected( 1, $value, false) . '>1</option>';
+		        $html .= '<option value="2"' . selected( 2, $value, false) . '>2</option>';
+		        $html .= '<option value="3"' . selected( 3, $value, false) . '>3</option>';
+		    	$html .= '</select>';
+
+		    	$html .= '<label id="dropdown" for="hierarchical_dropdown_3"> ' . __( 'set minimum number of required custom categories', $this->plugin_slug ) . '</label>';
+		     
+		    	echo $html;
+
+			} // end hierarchical_dropdown_callback_1
+
+		public function flat_check_callback_3( $args ) {
+
+			$output = $args[0].'[flat_check_3]';
+			$value  = isset( $args[1]['flat_check_3'] ) ? $args[1]['flat_check_3'] : '';
+
+			$checkhtml = '<input type="checkbox" id="flat_check_3" name="' . $output . '" value="1"' . checked( 1, $value, false ) . ' />';
+			$checkhtml .= '<label for="flat_check_3"> ' . __( 'check to require', $this->plugin_slug ) . '</label>';
+
+			echo $checkhtml;
+
+		} // end flat_check_callback_3
+
+			public function flat_dropdown_callback_3( $args ) {
+
+				$output = $args[0].'[flat_dropdown_3]';
+				$value  = isset( $args[1]['flat_dropdown_3'] ) ? $args[1]['flat_dropdown_3'] : '';
+
+				$html = '<select id="flat_dropdown_3" name="' . $output . '">';
+		        $html .= '<option value="1"' . selected( 1, $value, false) . '>1</option>';
+		        $html .= '<option value="2"' . selected( 2, $value, false) . '>2</option>';
+		        $html .= '<option value="3"' . selected( 3, $value, false) . '>3</option>';
+		        $html .= '<option value="4"' . selected( 4, $value, false) . '>4</option>';
+	        	$html .= '<option value="5"' . selected( 5, $value, false) . '>5</option>';
+		    	$html .= '</select>';
+
+		    	$html .= '<label id="dropdown" for="flat_dropdown_3"> ' . __( 'set minimum number of required custom tags', $this->plugin_slug ) . '</label>';
+		     
+		    	echo $html;
+
+			} // end flat_dropdown_callback_3
+
+//5
+		public function hierarchical_check_callback_5( $args ) {
+
+			$output = $args[0].'[hierarchical_check_5]';
+			$value  = isset( $args[1]['hierarchical_check_5'] ) ? $args[1]['hierarchical_check_5'] : '';
+
+			$checkhtml = '<input type="checkbox" id="hierarchical_check_5" name="' . $output . '" value="1"' . checked( 1, $value, false ) . ' />';
+			$checkhtml .= '<label for="hierarchical_check_5"> ' . __( 'check to require', $this->plugin_slug ) . '</label>';
+
+			echo $checkhtml;
+
+		} // end hierarchical_check_callback_5
+
+			public function hierarchical_dropdown_callback_5( $args ) {
+
+				$output = $args[0].'[hierarchical_dropdown_5]';
+				$value  = isset( $args[1]['hierarchical_dropdown_5'] ) ? $args[1]['hierarchical_dropdown_5'] : '';
+
+				$html = '<select id="hierarchical_dropdown_5" name="' . $output . '">';
+		        $html .= '<option value="1"' . selected( 1, $value, false) . '>1</option>';
+		        $html .= '<option value="2"' . selected( 2, $value, false) . '>2</option>';
+		        $html .= '<option value="3"' . selected( 3, $value, false) . '>3</option>';
+		    	$html .= '</select>';
+
+		    	$html .= '<label id="dropdown" for="hierarchical_dropdown_5"> ' . __( 'set minimum number of required custom categories', $this->plugin_slug ) . '</label>';
+		     
+		    	echo $html;
+
+			} // end hierarchical_dropdown_callback_1
+
+		public function flat_check_callback_5( $args ) {
+
+			$output = $args[0].'[flat_check_5]';
+			$value  = isset( $args[1]['flat_check_5'] ) ? $args[1]['flat_check_5'] : '';
+
+			$checkhtml = '<input type="checkbox" id="flat_check_5" name="' . $output . '" value="1"' . checked( 1, $value, false ) . ' />';
+			$checkhtml .= '<label for="flat_check_5"> ' . __( 'check to require', $this->plugin_slug ) . '</label>';
+
+			echo $checkhtml;
+
+		} // end flat_check_callback_5
+
+			public function flat_dropdown_callback_5( $args ) {
+
+				$output = $args[0].'[flat_dropdown_5]';
+				$value  = isset( $args[1]['flat_dropdown_5'] ) ? $args[1]['flat_dropdown_5'] : '';
+
+				$html = '<select id="flat_dropdown_5" name="' . $output . '">';
+		        $html .= '<option value="1"' . selected( 1, $value, false) . '>1</option>';
+		        $html .= '<option value="2"' . selected( 2, $value, false) . '>2</option>';
+		        $html .= '<option value="3"' . selected( 3, $value, false) . '>3</option>';
+		        $html .= '<option value="4"' . selected( 4, $value, false) . '>4</option>';
+	        	$html .= '<option value="5"' . selected( 5, $value, false) . '>5</option>';
+		    	$html .= '</select>';
+
+		    	$html .= '<label id="dropdown" for="flat_dropdown_5"> ' . __( 'set minimum number of required custom tags', $this->plugin_slug ) . '</label>';
+		     
+		    	echo $html;
+
+			} // end flat_dropdown_callback_5
+
+
+
 
 }
 post_type_requirements_checklist_settings::get_instance();
