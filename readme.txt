@@ -1,10 +1,10 @@
-=== Post Type Requirements Checklist ===
+=== Requirements Checklist ===
 Contributors: dauidus
 Author URI: http://dauid.us
 Tags: requirements, require, required, requirement, publish, post type, metabox, wysiwyg, featured image, author, excerpt
 Requires at least: 3.1
 Tested up to: 4.1.1
-Stable tag: 2.0
+Stable tag: 2.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -12,7 +12,7 @@ Allows admins to require content to be entered before a page/post can be publish
 
 == Description ==
 
-Post Type Requirements Checklist allows admins to require content to be entered before a page/post can be published.  Currently it supports requirements for the following areas on the add/edit screen:
+Requirements Checklist allows admins to require content to be entered before a page/post can be published.  Currently it supports requirements for the following areas on the add/edit screen:
 ** **
 * title
 * WYSIWYG editor
@@ -22,11 +22,11 @@ Post Type Requirements Checklist allows admins to require content to be entered 
 * tags (allows for minimum required number of tags, up to 5)
 * up to 5 custom taxonomies per post type (allows for minimum required number of categories/tags, as detailed above)
 
-PTRC uses OOP standards to add options only for those metaboxes which are supported for each post type and to execute code only on those pages where it is needed.  It works especially well for sites with many custom post types that require content to be entered in a specific way (ie. when a post type requires a specific page template or when the absence of a featured image will break the intended look of a post).  Think of any theme or plugin that supports an image slider powered by a required featured image, and you can surely see where PTRC can come in handy.
+Requirements Checklist uses OOP standards to add options only for those metaboxes which are supported for each post type and to execute code only on those pages where it is needed.  It works especially well for sites with many custom post types that require content to be entered in a specific way (ie. when a post type requires a specific page template or when the absence of a featured image will break the intended look of a post).  Think of any theme or plugin that supports an image slider powered by a required featured image, and you can surely see where PTRC can come in handy.
 
-To be clear, PTRC does absolutely nothing to the front-end of your site.  It simply forces certain types of data to be added to the add/edit page/post admin screen in order for that content to be published or updated.
+To be clear, Requirements Checklist does absolutely nothing to the front-end of your site.  It simply forces certain types of data to be added to the add/edit page/post admin screen in order for that content to be published or updated.
 
-PTRC works with multisite networks and allows users to define settings on a per-site basis.
+Requirements Checklist works with multisite networks and allows users to define settings on a per-site basis.
 
 == Installation ==
 
@@ -42,7 +42,7 @@ Installation from zip:
 Installation from WordPress Plugin Directory:
 
 1. From wp-admin interface, go to Plugins -> Add New
-2. Search for "Post Type Requirements Checklist"
+2. Search for "Requirements Checklist"
 3. Click Install Now under the plugin name
 4. Click Ok to install the plugin
 5. Click Activate Plugin once installed
@@ -64,6 +64,9 @@ Simply delete this plugin to remove all data associated with it.  Deactivating t
 2. Once requirements are met, the user can publish/update.
 
 == Changelog ==
+
+= 2.1 =
+* Rename from "Post Type Requirements Checklist" to "Requirements Checklist"
 
 = 2.0 =
 * major release with new features
