@@ -1,0 +1,32 @@
+
+.settings_page_aptrc tr {
+	//border-bottom: 1px solid #ccc;
+}
+.settings_page_aptrc th {
+	text-transform: capitalize;
+}
+.settings_page_aptrc th span {
+	text-transform: lowercase;
+	display: block;
+}
+
+.settings_page_aptrc label {
+	color: #B2B2B2;
+}
+
+.settings_page_aptrc input[type=checkbox]:checked + label {
+	color: #444;
+}
+
+.settings_page_aptrc .form-table tr select {
+	position: absolute;
+	margin-top: -35px;
+	padding-bottom: 0px !important;
+	margin-bottom: 0px;
+	width: 45px;
+}
+.settings_page_aptrc .form-table label#dropdown {
+	position: absolute;
+	margin-top: -30px;
+	margin-left: 60px;
+}
