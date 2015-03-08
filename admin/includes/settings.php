@@ -64,12 +64,22 @@ class post_type_requirements_checklist_settings {
 	public function admin_init() {
 		$plugin = post_type_requirements_checklist::get_instance();
 		$post_types = $plugin->supported_post_types();
+		$defaults = array(
+				// order defined by Parameters reference at http://codex.wordpress.org/Function_Reference/post_type_supports
+				'title' => '',
+				'editor' => '',
+				'thumbnail' => '',
+				'excerpt' => '',
+				'categories' => '',
+				'tags' => '',
+				'custom' => ''
+			);
 
 		foreach ( $post_types as $pt ) {
 			$post_object = get_post_type_object( $pt );
 			$section = $this->plugin_slug . '_' . $pt;
 			if ( false == get_option( $section ) ) {
-				add_option( $section, apply_filters( $section . '_default_settings' ) );
+				add_option( $section, apply_filters( $section . '_default_settings', $defaults ) );
 			}
 			$args = array( $section, get_option( $section ) );
 			add_settings_section(
@@ -276,7 +286,7 @@ class post_type_requirements_checklist_settings {
 			}
 
 
-			
+
 
 
 			register_setting(

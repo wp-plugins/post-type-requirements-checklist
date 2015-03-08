@@ -4,7 +4,7 @@ Author URI: http://dauid.us
 Tags: requirements, require, required, requirement, publish, post type, metabox, wysiwyg, featured image, author, excerpt
 Requires at least: 3.1
 Tested up to: 4.1.1
-Stable tag: 2.2
+Stable tag: 2.2.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -70,6 +70,9 @@ Of course!  Just save as a draft as normal.
 
 == Changelog ==
 
+= 2.2.1 =
+* fixed a bug which displays errors for some users
+
 = 2.2 =
 * admins can now set a number of maximum allowed categories and tags - this is based on current SEO standards for categories and tags, but allows for an unlimited option
 * slight changes to settings page responsive style to play nicely with mobile devices
@@ -95,6 +98,9 @@ Of course!  Just save as a draft as normal.
 * initial release
 
 == Upgrade Notice ==
+
+= 2.2.1 =
+Fixes a bug which displays errors for some users
 
 = 2.2 =
 Release with new features for maximum allowed number of categories and tags, based on current SEO standards.  Users are strongly urged to update.
