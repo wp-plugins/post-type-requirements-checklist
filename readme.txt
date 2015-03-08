@@ -18,8 +18,8 @@ Requirements Checklist allows admins to require content to be entered before a p
 * WYSIWYG editor
 * featured image
 * excerpt
-* categories (allows for min and max number of categories, 1-3, infinite)
-* tags (allows for min and max number of tags, 1-5, 7, 10, 15, 25 infinite)
+* categories (allows for min and max number of categories, 1-3 & infinite)
+* tags (allows for min and max number of tags, 1-5, 7, 10, 15, 25 & infinite)
 * up to 5 custom taxonomies per post type (allows for min and max number of categories/tags, as detailed above)
 
 Requirements Checklist uses OOP standards to add options only for those metaboxes which are supported for each post type and to execute code only on those pages where it is needed.  It works especially well for sites with many custom post types that require content to be entered in a specific way (ie. when a post type requires a custom excerpt or when the absence of a featured image will break the intended look of a post).  Think of any theme or plugin that supports an image slider powered by a featured image, and you can surely see where this plugin will come in handy.
