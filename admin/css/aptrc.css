@@ -24,6 +24,8 @@
 }
 .submitbox #requirements_list input[type=checkbox] + label em {
 	text-transform: lowercase;
+	font-size: 11px;
+	color: #777;
 }
 .submitbox #requirements_list input[type=checkbox] + label span {
 	margin: -2px 4px 0px 15px !important;

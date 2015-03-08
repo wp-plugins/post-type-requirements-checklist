@@ -4,7 +4,7 @@ Author URI: http://dauid.us
 Tags: requirements, require, required, requirement, publish, post type, metabox, wysiwyg, featured image, author, excerpt
 Requires at least: 3.1
 Tested up to: 4.1.1
-Stable tag: 2.1
+Stable tag: 2.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -18,13 +18,13 @@ Requirements Checklist allows admins to require content to be entered before a p
 * WYSIWYG editor
 * featured image
 * excerpt
-* categories (allows for minimum required number of categories, up to 3)
-* tags (allows for minimum required number of tags, up to 5)
-* up to 5 custom taxonomies per post type (allows for minimum required number of categories/tags, as detailed above)
+* categories (allows for min and max number of categories, 1-3, infinite)
+* tags (allows for min and max number of tags, 1-5, 7, 10, 15, 25 infinite)
+* up to 5 custom taxonomies per post type (allows for min and max number of categories/tags, as detailed above)
 
-Requirements Checklist uses OOP standards to add options only for those metaboxes which are supported for each post type and to execute code only on those pages where it is needed.  It works especially well for sites with many custom post types that require content to be entered in a specific way (ie. when a post type requires a specific page template or when the absence of a featured image will break the intended look of a post).  Think of any theme or plugin that supports an image slider powered by a required featured image, and you can surely see where PTRC can come in handy.
+Requirements Checklist uses OOP standards to add options only for those metaboxes which are supported for each post type and to execute code only on those pages where it is needed.  It works especially well for sites with many custom post types that require content to be entered in a specific way (ie. when a post type requires a custom excerpt or when the absence of a featured image will break the intended look of a post).  Think of any theme or plugin that supports an image slider powered by a featured image, and you can surely see where this plugin will come in handy.
 
-To be clear, Requirements Checklist does absolutely nothing to the front-end of your site.  It simply forces certain types of data to be added to the add/edit page/post admin screen in order for that content to be published or updated.
+To be clear, Requirements Checklist does absolutely nothing to the front-end of your site.  It simply forces certain types of data to be added to the add/edit page/post admin screen in order for that content to be published or updated.  If content requirements are not met, a draft can still be saved.
 
 Requirements Checklist works with multisite networks and allows users to define settings on a per-site basis.
 
@@ -37,7 +37,7 @@ Installation from zip:
 3. Click "Choose File" and select post-type-requirements-checklist.zip
 4. Click "Install Now"
 5. Activate the plugin through the 'Plugins' menu in WordPress
-6. Add instructive text from the `settings -> Post Type Requirements` admin page
+6. Add instructive text from the `settings -> Requirements Checklist` admin page
 
 Installation from WordPress Plugin Directory:
 
@@ -46,7 +46,7 @@ Installation from WordPress Plugin Directory:
 3. Click Install Now under the plugin name
 4. Click Ok to install the plugin
 5. Click Activate Plugin once installed
-6. Add instructive text from the `settings -> Post Type Requirements` admin page
+6. Add instructive text from the `settings -> Requirements Checklist` admin page
 
 == Frequently Asked Questions ==
 
@@ -58,12 +58,21 @@ Yes.  This plugin can be either network activated or activated individually for 
 
 Simply delete this plugin to remove all data associated with it.  Deactivating the plugin will keep all plugin data saved in the database, but will not remove it.
 
+= Can I save a draft if requirements are not met? =
+
+Of course!  Just save as a draft as normal. 
+
 == Screenshots ==
 
 1. Publishing/updating is disabled until all requirements are met.
 2. Once requirements are met, the user can publish/update.
 
 == Changelog ==
+
+= 2.2 =
+* admins can now set a number of maximum allowed categories and tags - this is based on current SEO standards for categories and tags, but allows for an unlimited option
+* slight changes to settings page responsive style to play nicely with mobile devices
+* settings pages now group each setting by content type and add help text for taxonomies
 
 = 2.1 =
 * Rename from "Post Type Requirements Checklist" to "Requirements Checklist"
@@ -85,6 +94,9 @@ Simply delete this plugin to remove all data associated with it.  Deactivating t
 * initial release
 
 == Upgrade Notice ==
+
+= 2.2 =
+Release with new features for maximum allowed number of categories and tags, based on current SEO standards.  Users are strongly urged to update.
 
 = 2.0 =
 Major release with new features.  Users are strongly urged to update.

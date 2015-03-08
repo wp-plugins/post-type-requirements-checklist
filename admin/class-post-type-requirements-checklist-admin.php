@@ -116,8 +116,8 @@ class Post_Type_Requirements_Checklist_Admin {
 		 *
 		 */
 		$this->plugin_screen_hook_suffix = add_options_page(
-			__( 'Post Type Requirements', $this->plugin_slug ),
-			__( 'Post Type Requirements', $this->plugin_slug ),
+			__( 'Requirements Checklist', $this->plugin_slug ),
+			__( 'Requirements Checklist', $this->plugin_slug ),
 			'manage_options',
 			$this->plugin_slug,
 			array( $this, 'display_plugin_admin_page' )
@@ -217,7 +217,7 @@ class Post_Type_Requirements_Checklist_Admin {
 
 			<script>
 
-				function checkHeadline() {
+				function checkTitle() {
 		
 					var titleElement = jQuery( "#title" );
 					var title = titleElement.val();
@@ -232,9 +232,10 @@ class Post_Type_Requirements_Checklist_Admin {
 				}
 
 				// run when page first loads
-				checkHeadline();
+				checkTitle();
 				// run on title input
-				setInterval(checkHeadline,500);
+				jQuery( " #title ").keyup( checkTitle );
+				//setInterval(checkHeadline,500);
 				
 			</script>
 
@@ -272,8 +273,8 @@ class Post_Type_Requirements_Checklist_Admin {
 
 				// run when page first loads
 				checkEditor();
-				// run on editor input
-				setInterval(checkEditor,500);
+				// run on editor input (this currently has problems)
+				setInterval(checkEditor,1000);
 				
 			</script>
 
@@ -308,7 +309,7 @@ class Post_Type_Requirements_Checklist_Admin {
 				// run when page first loads
 				checkThumbnail();
 				// set check time
-				setInterval(checkThumbnail,500);
+				setInterval(checkThumbnail,1000);
 				
 			</script>
 
@@ -345,7 +346,7 @@ class Post_Type_Requirements_Checklist_Admin {
 
 				// run when page first loads
 				checkExcerpt();
-				// run on excerpt input
+				// set check time
 				setInterval(checkExcerpt,500);
 				
 			</script>
@@ -355,155 +356,139 @@ class Post_Type_Requirements_Checklist_Admin {
 
 
 		/**
-		 * Custom Fields
+		 * Built-In Taxonomies
 		 *
-		 * @since 1.0
+		 * @since 1.0, reimagined in 3.0
 		 */
-		if ( isset( $options['customfields_check'] ) && ! empty( $options['customfields_check'] ) ) {				
-			echo '<span class="reqcb">';
-			echo '<input name="customfields_checkbox" id="customfields_checkbox" type="checkbox" onclick="return false;" onkeydown="return false;" /><label for="customfields_checkbox"><span></span> ' . __( 'Custom Fields', $this->plugin_slug ) . '</label><br/>';
-			echo '</span>';
-			// logic to auto fill name of custom field(s) added in settings 
-		}
+		$bi_argums = array(
+		    'public'   => true,
+		    '_builtin' => true
+		); 
+		$bi_outputs = 'names'; // or objects
+		$bi_operators = 'and'; // 'and' or 'or'
+		$bi_taxonomy_names = get_taxonomies( $bi_argums, $bi_outputs, $bi_operators );
+		echo '<div id="custom-taxonomies">';
+		foreach ( $bi_taxonomy_names as $bi_tn ) {
 
+			if ( is_object_in_taxonomy( $post_type, $bi_tn ) ) {
 
-		/**
-		 * Post Format
-		 *
-		 * @since 1.0
-		 */
-/*		if ( isset( $options['postformats_check'] ) && ! empty( $options['postformats_check'] ) ) {				
-			echo '<span class="reqcb">';
-			echo '<input name="postformats_checkbox" id="postformats_checkbox" type="checkbox" onclick="return false;" onkeydown="return false;" /><label for="postformats_checkbox"><span></span> ' . __( 'Format', $this->plugin_slug ) . '</label><br/>';
-			echo '</span>';
-			?>
+				if ( is_taxonomy_hierarchical( $bi_tn ) ) {
+					if ( isset( $options['categories_check'] ) && ! empty( $options['categories_check'] ) ) {				
+						echo '<span class="reqcb">';
+						echo '<input name="categories_checkbox" id="categories_checkbox" type="checkbox" onclick="return false;" onkeydown="return false;" /><label for="categories_checkbox"><span></span> ' . __( 'Categories', $this->plugin_slug . '');
 
-			<script>
+						$cat_num = $options['categories_dropdown'];
+						$cat_num_max = $options['categories_max_dropdown'];
 
-				function checkPostFormat() {
+						if ( $cat_num == $cat_num_max ) {
+							$cat_num_html = ' &nbsp ' . __( 'exactly ', $this->plugin_slug) . '' .$cat_num_max . '';
+							echo '<em>'.$cat_num_html.'</em>';
+						}
+						else if ( $cat_num_max == '1000' ) {
+							$cat_num_html = ' &nbsp ' . __( '', $this->plugin_slug) . '' .$cat_num . ' or more';
+							echo '<em>'.$cat_num_html.'</em>';
+						}
+						else {
+							$cat_num_html = ' &nbsp ' . $cat_num . '-' . $cat_num_max . '';
+							echo '<em>'.$cat_num_html.'</em>';
+						}
 
-					var excerptElement = jQuery( "#excerpt" );
-					var excerpt = excerptElement.val();
+						echo '</label><br/>';
+						echo '</span>';
+						?>
 
-					if ( excerpt == '' ) {
-						jQuery( "input[type='checkbox'][name='postformats_checkbox']").prop('checked', false);
-					}	
-					else {
-						jQuery( "input[type='checkbox'][name='postformats_checkbox']").prop('checked', true);
+						<script>
+
+							function checkCategories() {
+
+								var cat_num = '<?php echo $cat_num; ?>';
+								var cat_num_max = '<?php echo $cat_num_max; ?>';
+								var catschecked = jQuery("#categorychecklist input[type='checkbox']:checked").length;
+
+								if ( ( cat_num == cat_num_max ) && ( catschecked == cat_num ) ) {
+									jQuery( "input[type='checkbox'][name='categories_checkbox']").prop('checked', true);
+								} 
+								else if ( ( catschecked >= cat_num ) && ( catschecked <= cat_num_max ) ) {
+									jQuery( "input[type='checkbox'][name='categories_checkbox']").prop('checked', true);
+								}
+								else {
+									jQuery( "input[type='checkbox'][name='categories_checkbox']").prop('checked', false);
+								}
+
+							}
+
+							// run when page first loads
+							checkCategories();
+							// set check time
+							setInterval(checkCategories,1000);
+							
+						</script>
+
+						<?php
+						// logic for minimum number of categories
 					}
 
+				} else {
+					if ( isset( $options['tags_check'] ) && ! empty( $options['tags_check'] ) ) {				
+						echo '<span class="reqcb">';
+						echo '<input name="tags_checkbox" id="tags_checkbox" type="checkbox" onclick="return false;" onkeydown="return false;" /><label for="tags_checkbox"><span></span> ' . __( 'Tags', $this->plugin_slug . '');
+						
+						$tag_num = $options['tags_dropdown'];
+						$tag_num_max = $options['tags_max_dropdown'];
+
+						if ( $tag_num == $tag_num_max ) {
+							$tag_num_html = ' &nbsp; ' . __( 'exactly ', $this->plugin_slug) . '' .$tag_num_max . '';
+							echo '<em>'.$tag_num_html.'</em>';
+						}
+						else if ( $tag_num_max == '1000' ) {
+							$tag_num_html = ' &nbsp ' . __( '', $this->plugin_slug) . '' .$tag_num . ' or more';
+							echo '<em>'.$tag_num_html.'</em>';
+						}
+						else {
+							$tag_num_html = ' &nbsp; ' . $tag_num . '-' . $tag_num_max . '';
+							echo '<em>'.$tag_num_html.'</em>';
+						}
+
+						echo '</label><br/>';
+						echo '</span>';
+						?>
+
+						<script>
+
+							function checkTags() {
+
+								var tag_num = '<?php echo $tag_num; ?>';
+								var tag_num_max = '<?php echo $tag_num_max; ?>';
+								var tagschecked = jQuery("#tagsdiv-post_tag .ntdelbutton").length;
+
+								if ( ( tag_num == tag_num_max ) && ( tagschecked == tag_num ) ) {
+									jQuery( "input[type='checkbox'][name='tags_checkbox']").prop('checked', true);
+								} 
+								else if ( ( tagschecked >= tag_num ) && ( tagschecked <= tag_num_max ) ) {
+									jQuery( "input[type='checkbox'][name='tags_checkbox']").prop('checked', true);
+								}
+								else {
+									jQuery( "input[type='checkbox'][name='tags_checkbox']").prop('checked', false);
+								}
+
+							}
+
+							// run when page first loads
+							checkTags();
+							// set check time
+							setInterval(checkTags,1000);
+							
+						</script>
+
+						<?php
+						// logic for minimum number of tags
+					}
 				}
-
-				// run when page first loads
-				checkPostFormat();
-				// run on excerpt input
-				setInterval(checkPostFormat,500);
-				
-			</script>
-
-			<?php
-			// by default, no radio boxes should be selected
-		}		*/
-
-
-		/**
-		 * Categories
-		 *
-		 * @since 1.0
-		 */
-		if ( isset( $options['categories_check'] ) && ! empty( $options['categories_check'] ) ) {				
-			echo '<span class="reqcb">';
-			echo '<input name="categories_checkbox" id="categories_checkbox" type="checkbox" onclick="return false;" onkeydown="return false;" /><label for="categories_checkbox"><span></span> ' . __( 'Categories', $this->plugin_slug . '');
-
-			$cat_num = $options['categories_dropdown'];
-
-			if ( $cat_num == '1' ) {
-			}
-			else {
-				$cat_num_html = ' (' . __( 'minimum', $this->plugin_slug) . ' ' . $cat_num . ')';
-				echo '<em>'.$cat_num_html.'</em>';
 			}
 
-			echo '</label><br/>';
-			echo '</span>';
-			?>
-
-			<script>
-
-				function checkCategories() {
-
-					var cat_num_check = '<?php echo $cat_num; ?>';
-					var catschecked = jQuery("#categorychecklist input[type='checkbox']:checked").length;
-
-					if ( ( catschecked == cat_num_check ) || ( catschecked > cat_num_check ) ) {
-						jQuery( "input[type='checkbox'][name='categories_checkbox']").prop('checked', true);
-					}
-					else {
-						jQuery( "input[type='checkbox'][name='categories_checkbox']").prop('checked', false);
-					}
-
-				}
-
-				// run when page first loads
-				checkCategories();
-				// run on excerpt input
-				setInterval(checkCategories,500);
-				
-			</script>
-
-			<?php
-			// logic for minimum number of categories
 		}
+		echo '</div>';
 
-
-		/**
-		 * Tags
-		 *
-		 * @since 1.0
-		 */
-		if ( isset( $options['tags_check'] ) && ! empty( $options['tags_check'] ) ) {				
-			echo '<span class="reqcb">';
-			echo '<input name="tags_checkbox" id="tags_checkbox" type="checkbox" onclick="return false;" onkeydown="return false;" /><label for="tags_checkbox"><span></span> ' . __( 'Tags', $this->plugin_slug . '');
-			
-			$tag_num = $options['tags_dropdown'];
-
-			if ( $tag_num == '1' ) {
-			}
-			else {
-				$tag_num_html = ' (' . __( 'minimum', $this->plugin_slug) . ' ' . $tag_num . ')';
-				echo '<em>'.$tag_num_html.'</em>';
-			}
-
-			echo '</label><br/>';
-			echo '</span>';
-			?>
-
-			<script>
-
-				function checkTags() {
-
-					var tag_num_check = '<?php echo $tag_num; ?>';
-					var tagschecked = jQuery("#tagsdiv-post_tag .ntdelbutton").length;
-
-					if ( ( tagschecked == tag_num_check ) || ( tagschecked > tag_num_check ) ) {
-						jQuery( "input[type='checkbox'][name='tags_checkbox']").prop('checked', true);
-					}
-					else {
-						jQuery( "input[type='checkbox'][name='tags_checkbox']").prop('checked', false);
-					}
-
-				}
-
-				// run when page first loads
-				checkTags();
-				// run on excerpt input
-				setInterval(checkTags,500);
-				
-			</script>
-
-			<?php
-			// logic for minimum number of tags
-		}
 
 		/**
 		 * Custom Taxonomies
@@ -529,11 +514,18 @@ class Post_Type_Requirements_Checklist_Admin {
 						echo '<input name="'.$tn.'_checkbox" id="'.$tn.'_checkbox" type="checkbox" onclick="return false;" onkeydown="return false;" /><label for="'.$tn.'_checkbox"><span></span> ' . __( ''.$tn.'s', $this->plugin_slug . '');
 						
 						$cat_num = $options['hierarchical_dropdown_'.$x.''];
+						$cat_num_max = $options['hierarchical_max_dropdown_'.$x.''];
 
-						if ( $cat_num == '1' ) {
+						if ( $cat_num == $cat_num_max ) {
+							$cat_num_html = ' &nbsp ' . __( 'exactly ', $this->plugin_slug) . '' .$cat_num_max . '';
+							echo '<em>'.$cat_num_html.'</em>';
+						}
+						else if ( $cat_num_max == '1000' ) {
+							$cat_num_html = ' &nbsp ' . __( '', $this->plugin_slug) . '' .$cat_num . ' or more';
+							echo '<em>'.$cat_num_html.'</em>';
 						}
 						else {
-							$cat_num_html = ' (' . __( 'minimum', $this->plugin_slug) . ' ' . $cat_num . ')';
+							$cat_num_html = ' &nbsp ' . $cat_num . '-' . $cat_num_max . '';
 							echo '<em>'.$cat_num_html.'</em>';
 						}
 
@@ -543,14 +535,16 @@ class Post_Type_Requirements_Checklist_Admin {
 
 						<script>
 
-							var name = '<?php echo $tn; ?>';
-
 							function hier() {
 
-								var cat_num_check = '<?php echo $cat_num; ?>';
-								var catchecked = jQuery("#<?php echo $tn; ?>checklist input[type='checkbox']:checked").length;
+								var cat_num = '<?php echo $cat_num; ?>';
+								var cat_num_max = '<?php echo $cat_num_max; ?>';
+								var catschecked = jQuery("#<?php echo $tn; ?>checklist input[type='checkbox']:checked").length;
 
-								if ( ( catchecked == cat_num_check ) || ( catchecked > cat_num_check ) ) {
+								if ( ( cat_num == cat_num_max ) && ( catschecked == cat_num ) ) {
+									jQuery( "input[type='checkbox'][name='<?php echo $tn; ?>_checkbox']").prop('checked', true);
+								}
+								else if ( ( catschecked >= cat_num ) && ( catschecked <= cat_num_max ) ) {
 									jQuery( "input[type='checkbox'][name='<?php echo $tn; ?>_checkbox']").prop('checked', true);
 								}
 								else {
@@ -560,8 +554,8 @@ class Post_Type_Requirements_Checklist_Admin {
 
 							// run when page first loads
 							hier();
-							// run on excerpt input
-							setInterval(hier,500);
+							// set check time
+							setInterval(hier,1000);
 							
 						</script>
 
@@ -576,11 +570,18 @@ class Post_Type_Requirements_Checklist_Admin {
 						echo '<input name="'.$tn.'_checkbox" id="'.$tn.'_checkbox" type="checkbox" onclick="return false;" onkeydown="return false;" /><label for="'.$tn.'_checkbox"><span></span> ' . __( ''.$tn.'s', $this->plugin_slug . '');
 						
 						$tag_num = $options['flat_dropdown_'.$x.''];
+						$tag_num_max = $options['flat_max_dropdown_'.$x.''];
 
-						if ( $tag_num == '1' ) {
+						if ( $tag_num == $tag_num_max ) {
+							$tag_num_html = ' &nbsp; ' . __( 'exactly ', $this->plugin_slug) . '' .$tag_num_max . '';
+							echo '<em>'.$tag_num_html.'</em>';
+						}
+						else if ( $tag_num_max == '1000' ) {
+							$tag_num_html = ' &nbsp ' . __( '', $this->plugin_slug) . '' .$tag_num . ' or more';
+							echo '<em>'.$tag_num_html.'</em>';
 						}
 						else {
-							$tag_num_html = ' (' . __( 'minimum', $this->plugin_slug) . ' ' . $tag_num . ')';
+							$tag_num_html = ' &nbsp; ' . $tag_num . '-' . $tag_num_max . '';
 							echo '<em>'.$tag_num_html.'</em>';
 						}
 
@@ -592,10 +593,14 @@ class Post_Type_Requirements_Checklist_Admin {
 
 							function flat() {
 
-								var tag_num_check = '<?php echo $tag_num; ?>';
+								var tag_num = '<?php echo $tag_num; ?>';
+								var tag_num_max = '<?php echo $tag_num_max; ?>';
 								var tagschecked = jQuery("#tagsdiv-<?php echo $tn; ?> .ntdelbutton").length;
 
-								if ( ( tagschecked == tag_num_check ) || ( tagschecked > tag_num_check ) ) {
+								if ( ( tag_num == tag_num_max ) && ( tagschecked == tag_num ) ) {
+									jQuery( "input[type='checkbox'][name='<?php echo $tn; ?>_checkbox']").prop('checked', true);
+								}
+								else if ( ( tagschecked >= tag_num ) && ( tagschecked <= tag_num_max ) ) {
 									jQuery( "input[type='checkbox'][name='<?php echo $tn; ?>_checkbox']").prop('checked', true);
 								}
 								else {
@@ -605,8 +610,8 @@ class Post_Type_Requirements_Checklist_Admin {
 
 							// run when page first loads
 							flat();
-							// run on excerpt input
-							setInterval(flat,500);
+							// set check time
+							setInterval(flat,1000);
 							
 						</script>
 
@@ -621,7 +626,7 @@ class Post_Type_Requirements_Checklist_Admin {
 		echo '</div>';
 
 
-		echo '<span id="rlbot">' . __( 'Publishing disabled until requirements met', $this->plugin_slug ) . '</span>';
+		echo '<span id="rlbot">' . __( 'Publishing disabled until requirements met  Drafts can be saved above', $this->plugin_slug ) . '</span>';
 
 
 		/**

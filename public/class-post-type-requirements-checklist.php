@@ -291,7 +291,7 @@ class post_type_requirements_checklist {
 
 			$html  = '<div class="updated">';
 			$html .= '<p>';
-				$html .= sprintf( __( 'You have deleted the Post Type Requirements Checklist plugin. All settings associated with the plugin have been removed from the database.', $plugin->get_plugin_slug() ), admin_url( 'options-general.php?page=' . $plugin->get_plugin_slug() ) );
+				$html .= sprintf( __( 'You have deleted the Requirements Checklist plugin. All settings associated with the plugin have been removed from the database.', $plugin->get_plugin_slug() ), admin_url( 'options-general.php?page=' . $plugin->get_plugin_slug() ) );
 			$html .= '</p>';
 			$html .= '</div><!-- /.updated -->';
 

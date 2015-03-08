@@ -13,8 +13,8 @@
  * @wordpress-plugin
  * Plugin Name:       Requirements Checklist
  * Plugin URI:        http://dauid.us
- * Description:       Allows admins to require content to be entered before a page/post can be published.
- * Version:           2.1
+ * Description:       Allows admins to set required content to be entered before a page/post or custom post type can be published.
+ * Version:           2.2
  * Author:            Dave Winter
  * Author URI:        http://dauid.us
  * Text Domain: 	  post-type-requirements-checklist
