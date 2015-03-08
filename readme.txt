@@ -66,6 +66,7 @@ Of course!  Just save as a draft as normal.
 
 1. Publishing/updating is disabled until all requirements are met.
 2. Once requirements are met, the user can publish/update.
+3. Settings page (showing custom post type "Movies" with multiple custom taxonomies)
 
 == Changelog ==
 
