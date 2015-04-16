@@ -232,9 +232,10 @@ class Post_Type_Requirements_Checklist_Admin {
 				}
 
 				// run when page first loads
-				checkTitle();
+				jQuery( "input[type='checkbox'][name='title_checkbox']").prop('checked', false);
+				setTimeout(checkTitle,1000);
 				// run on title input
-				jQuery( " #title ").keyup( checkTitle );
+				jQuery( "#title" ).keyup( checkTitle );
 				//setInterval(checkHeadline,500);
 				
 			</script>
@@ -272,7 +273,8 @@ class Post_Type_Requirements_Checklist_Admin {
 				}
 
 				// run when page first loads
-				checkEditor();
+				jQuery( "input[type='checkbox'][name='editor_checkbox']").prop('checked', false);
+				// checkEditor();
 				// run on editor input (this currently has problems)
 				setInterval(checkEditor,1000);
 				
@@ -300,6 +302,12 @@ class Post_Type_Requirements_Checklist_Admin {
 					if (jQuery("#postimagediv img").length) {
 						jQuery( "input[type='checkbox'][name='thumbnail_checkbox']").prop('checked', true);
 					}	
+					// support for 'Drag & Drop Featured Image' plugin
+					// suggestion by Jean-Philippe (on WP support forums)
+					// since 2.3
+					else if ( (jQuery("#current-uploaded-image img").length) && (jQuery('#current-uploaded-image').is(':visible')) ) { 
+						jQuery( "input[type='checkbox'][name='thumbnail_checkbox']").prop('checked', true);
+					}
 					else {
 						jQuery( "input[type='checkbox'][name='thumbnail_checkbox']").prop('checked', false);
 					}
@@ -307,7 +315,8 @@ class Post_Type_Requirements_Checklist_Admin {
 				}
 
 				// run when page first loads
-				checkThumbnail();
+				jQuery( "input[type='checkbox'][name='thumbnail_checkbox']").prop('checked', false);
+				// checkThumbnail();
 				// set check time
 				setInterval(checkThumbnail,1000);
 				
@@ -345,9 +354,10 @@ class Post_Type_Requirements_Checklist_Admin {
 				}
 
 				// run when page first loads
-				checkExcerpt();
+				jQuery( "input[type='checkbox'][name='excerpt_checkbox']").prop('checked', false);
+				// checkExcerpt();
 				// set check time
-				setInterval(checkExcerpt,500);
+				setInterval(checkExcerpt,1000);
 				
 			</script>
 
@@ -358,7 +368,7 @@ class Post_Type_Requirements_Checklist_Admin {
 		/**
 		 * Built-In Taxonomies
 		 *
-		 * @since 1.0, reimagined in 3.0
+		 * @since 1.0, reimagined in 2.2
 		 */
 		$bi_argums = array(
 		    'public'   => true,
@@ -367,7 +377,11 @@ class Post_Type_Requirements_Checklist_Admin {
 		$bi_outputs = 'names'; // or objects
 		$bi_operators = 'and'; // 'and' or 'or'
 		$bi_taxonomy_names = get_taxonomies( $bi_argums, $bi_outputs, $bi_operators );
-		echo '<div id="custom-taxonomies">';
+		// remove second tags listing from post screens
+		if ( 'post' == $post_type ) {
+			unset( $bi_taxonomy_names['post_tag'] );
+		}
+		echo '<div id="builtin-taxonomies">';
 		foreach ( $bi_taxonomy_names as $bi_tn ) {
 
 			if ( is_object_in_taxonomy( $post_type, $bi_tn ) ) {
@@ -418,7 +432,8 @@ class Post_Type_Requirements_Checklist_Admin {
 							}
 
 							// run when page first loads
-							checkCategories();
+							jQuery( "input[type='checkbox'][name='categories_checkbox']").prop('checked', false);
+							// checkCategories();
 							// set check time
 							setInterval(checkCategories,1000);
 							
@@ -474,7 +489,8 @@ class Post_Type_Requirements_Checklist_Admin {
 							}
 
 							// run when page first loads
-							checkTags();
+							jQuery( "input[type='checkbox'][name='tags_checkbox']").prop('checked', false);
+							// checkTags();
 							// set check time
 							setInterval(checkTags,1000);
 							
@@ -506,127 +522,218 @@ class Post_Type_Requirements_Checklist_Admin {
 		echo '<div id="custom-taxonomies">';
 		foreach ( $taxonomy_names as $tn ) {
 
-			if ( is_object_in_taxonomy( $post_type, $tn ) ) {
-				if ( is_taxonomy_hierarchical( $tn ) ) {
+			$thingargums = array(
+			  'name' => $tn
+			);
+			$thingoutputs = 'objects'; // or names
+			$things = get_taxonomies( $thingargums, $thingoutputs ); 
 
-					if ( isset( $options['hierarchical_check_'.$x.''] ) && ! empty( $options['hierarchical_check_'.$x.''] ) ) {				
-						echo '<span class="reqcb">';
-						echo '<input name="'.$tn.'_checkbox" id="'.$tn.'_checkbox" type="checkbox" onclick="return false;" onkeydown="return false;" /><label for="'.$tn.'_checkbox"><span></span> ' . __( ''.$tn.'s', $this->plugin_slug . '');
-						
-						$cat_num = $options['hierarchical_dropdown_'.$x.''];
-						$cat_num_max = $options['hierarchical_max_dropdown_'.$x.''];
+			foreach ($things as $thing ) {
 
-						if ( $cat_num == $cat_num_max ) {
-							$cat_num_html = ' &nbsp ' . __( 'exactly ', $this->plugin_slug) . '' .$cat_num_max . '';
-							echo '<em>'.$cat_num_html.'</em>';
-						}
-						else if ( $cat_num_max == '1000' ) {
-							$cat_num_html = ' &nbsp ' . __( '', $this->plugin_slug) . '' .$cat_num . ' or more';
-							echo '<em>'.$cat_num_html.'</em>';
-						}
-						else {
-							$cat_num_html = ' &nbsp ' . $cat_num . '-' . $cat_num_max . '';
-							echo '<em>'.$cat_num_html.'</em>';
-						}
+				if ( is_object_in_taxonomy( $post_type, $tn ) ) {
+					if ( is_taxonomy_hierarchical( $tn ) ) {
 
-						echo '</label><br/>';
-						echo '</span>';
-						?>
+						if ( isset( $options['hierarchical_check_'.$x.''] ) && ! empty( $options['hierarchical_check_'.$x.''] ) ) {				
+							echo '<span class="reqcb">';
+							echo '<input name="'.$tn.'_checkbox" id="'.$tn.'_checkbox" type="checkbox" onclick="return false;" onkeydown="return false;" /><label for="'.$tn.'_checkbox"><span></span> ' . $thing->label;
+							
+							$cat_num = $options['hierarchical_dropdown_'.$x.''];
+							$cat_num_max = $options['hierarchical_max_dropdown_'.$x.''];
 
-						<script>
-
-							function hier() {
-
-								var cat_num = '<?php echo $cat_num; ?>';
-								var cat_num_max = '<?php echo $cat_num_max; ?>';
-								var catschecked = jQuery("#<?php echo $tn; ?>checklist input[type='checkbox']:checked").length;
-
-								if ( ( cat_num == cat_num_max ) && ( catschecked == cat_num ) ) {
-									jQuery( "input[type='checkbox'][name='<?php echo $tn; ?>_checkbox']").prop('checked', true);
-								}
-								else if ( ( catschecked >= cat_num ) && ( catschecked <= cat_num_max ) ) {
-									jQuery( "input[type='checkbox'][name='<?php echo $tn; ?>_checkbox']").prop('checked', true);
-								}
-								else {
-									jQuery( "input[type='checkbox'][name='<?php echo $tn; ?>_checkbox']").prop('checked', false);
-								}
+							if ( $cat_num == $cat_num_max ) {
+								$cat_num_html = ' &nbsp ' . __( 'exactly ', $this->plugin_slug) . '' .$cat_num_max . '';
+								echo '<em>'.$cat_num_html.'</em>';
+							}
+							else if ( $cat_num_max == '1000' ) {
+								$cat_num_html = ' &nbsp ' . __( '', $this->plugin_slug) . '' .$cat_num . ' or more';
+								echo '<em>'.$cat_num_html.'</em>';
+							}
+							else {
+								$cat_num_html = ' &nbsp ' . $cat_num . '-' . $cat_num_max . '';
+								echo '<em>'.$cat_num_html.'</em>';
 							}
 
-							// run when page first loads
-							hier();
-							// set check time
-							setInterval(hier,1000);
-							
-						</script>
+							echo '</label><br/>';
+							echo '</span>';
+							?>
 
-						<?php
-						// logic for minimum number of categories
+							<script>
+
+								function hier() {
+
+									var cat_num = '<?php echo $cat_num; ?>';
+									var cat_num_max = '<?php echo $cat_num_max; ?>';
+									var catschecked = jQuery("#<?php echo $tn; ?>checklist input[type='checkbox']:checked").length;
+
+									if ( ( cat_num == cat_num_max ) && ( catschecked == cat_num ) ) {
+										jQuery( "input[type='checkbox'][name='<?php echo $tn; ?>_checkbox']").prop('checked', true);
+									}
+									else if ( ( catschecked >= cat_num ) && ( catschecked <= cat_num_max ) ) {
+										jQuery( "input[type='checkbox'][name='<?php echo $tn; ?>_checkbox']").prop('checked', true);
+									}
+									else {
+										jQuery( "input[type='checkbox'][name='<?php echo $tn; ?>_checkbox']").prop('checked', false);
+									}
+								}
+
+								// run when page first loads
+								jQuery( "input[type='checkbox'][name='<?php echo $tn; ?>_checkbox']").prop('checked', false);
+								// hier();
+								// set check time
+								setInterval(hier,1000);
+								
+							</script>
+
+							<?php
+							// logic for minimum number of categories
+						}
+
 					}
+					else {
+						if ( isset( $options['flat_check_'.$x.''] ) && ! empty( $options['flat_check_'.$x.''] ) ) {				
+							echo '<span class="reqcb">';
+							echo '<input name="'.$tn.'_checkbox" id="'.$tn.'_checkbox" type="checkbox" onclick="return false;" onkeydown="return false;" /><label for="'.$tn.'_checkbox"><span></span> ' .$thing->label;
+							
+							$tag_num = $options['flat_dropdown_'.$x.''];
+							$tag_num_max = $options['flat_max_dropdown_'.$x.''];
 
-				}
-				else {
-					if ( isset( $options['flat_check_'.$x.''] ) && ! empty( $options['flat_check_'.$x.''] ) ) {				
-						echo '<span class="reqcb">';
-						echo '<input name="'.$tn.'_checkbox" id="'.$tn.'_checkbox" type="checkbox" onclick="return false;" onkeydown="return false;" /><label for="'.$tn.'_checkbox"><span></span> ' . __( ''.$tn.'s', $this->plugin_slug . '');
-						
-						$tag_num = $options['flat_dropdown_'.$x.''];
-						$tag_num_max = $options['flat_max_dropdown_'.$x.''];
-
-						if ( $tag_num == $tag_num_max ) {
-							$tag_num_html = ' &nbsp; ' . __( 'exactly ', $this->plugin_slug) . '' .$tag_num_max . '';
-							echo '<em>'.$tag_num_html.'</em>';
-						}
-						else if ( $tag_num_max == '1000' ) {
-							$tag_num_html = ' &nbsp ' . __( '', $this->plugin_slug) . '' .$tag_num . ' or more';
-							echo '<em>'.$tag_num_html.'</em>';
-						}
-						else {
-							$tag_num_html = ' &nbsp; ' . $tag_num . '-' . $tag_num_max . '';
-							echo '<em>'.$tag_num_html.'</em>';
-						}
-
-						echo '</label><br/>';
-						echo '</span>';
-						?>
-
-						<script>
-
-							function flat() {
-
-								var tag_num = '<?php echo $tag_num; ?>';
-								var tag_num_max = '<?php echo $tag_num_max; ?>';
-								var tagschecked = jQuery("#tagsdiv-<?php echo $tn; ?> .ntdelbutton").length;
-
-								if ( ( tag_num == tag_num_max ) && ( tagschecked == tag_num ) ) {
-									jQuery( "input[type='checkbox'][name='<?php echo $tn; ?>_checkbox']").prop('checked', true);
-								}
-								else if ( ( tagschecked >= tag_num ) && ( tagschecked <= tag_num_max ) ) {
-									jQuery( "input[type='checkbox'][name='<?php echo $tn; ?>_checkbox']").prop('checked', true);
-								}
-								else {
-									jQuery( "input[type='checkbox'][name='<?php echo $tn; ?>_checkbox']").prop('checked', false);
-								}
+							if ( $tag_num == $tag_num_max ) {
+								$tag_num_html = ' &nbsp; ' . __( 'exactly ', $this->plugin_slug) . '' .$tag_num_max . '';
+								echo '<em>'.$tag_num_html.'</em>';
+							}
+							else if ( $tag_num_max == '1000' ) {
+								$tag_num_html = ' &nbsp ' . __( '', $this->plugin_slug) . '' .$tag_num . ' or more';
+								echo '<em>'.$tag_num_html.'</em>';
+							}
+							else {
+								$tag_num_html = ' &nbsp; ' . $tag_num . '-' . $tag_num_max . '';
+								echo '<em>'.$tag_num_html.'</em>';
 							}
 
-							// run when page first loads
-							flat();
-							// set check time
-							setInterval(flat,1000);
-							
-						</script>
+							echo '</label><br/>';
+							echo '</span>';
+							?>
 
-						<?php
-						// logic for minimum number of tags
+							<script>
+
+								function flat() {
+
+									var tag_num = '<?php echo $tag_num; ?>';
+									var tag_num_max = '<?php echo $tag_num_max; ?>';
+									var tagschecked = jQuery("#tagsdiv-<?php echo $tn; ?> .ntdelbutton").length;
+
+									if ( ( tag_num == tag_num_max ) && ( tagschecked == tag_num ) ) {
+										jQuery( "input[type='checkbox'][name='<?php echo $tn; ?>_checkbox']").prop('checked', true);
+									}
+									else if ( ( tagschecked >= tag_num ) && ( tagschecked <= tag_num_max ) ) {
+										jQuery( "input[type='checkbox'][name='<?php echo $tn; ?>_checkbox']").prop('checked', true);
+									}
+									else {
+										jQuery( "input[type='checkbox'][name='<?php echo $tn; ?>_checkbox']").prop('checked', false);
+									}
+								}
+
+								// run when page first loads
+								jQuery( "input[type='checkbox'][name='<?php echo $tn; ?>_checkbox']").prop('checked', false);
+								// flat();
+								// set check time 
+								setInterval(flat,1000);
+								
+							</script>
+
+							<?php
+							// logic for minimum number of tags
+						}
+
 					}
-
 				}
+
 			}
+
 			$x++;
 		}
 		echo '</div>';
 
 
-		echo '<span id="rlbot">' . __( 'Publishing disabled until requirements met  Drafts can be saved above', $this->plugin_slug ) . '</span>';
+		/**
+		 * WordPress SEO by Yoast
+		 * suggestion by Courtney Engle Robertson (on WP support forums)
+		 *
+		 * @since 2.3
+		 */
+		if (class_exists('WPSEO_Utils')) {	
+			if ( ( isset( $options['yoastseo_focus_keyword'] ) && ! empty( $options['yoastseo_focus_keyword'] )) || ( isset( $options['yoastseo_meta_description'] ) && ! empty( $options['yoastseo_meta_description'] )) ) {	
+
+				echo '<div id="custom-taxonomies">';	
+				echo '<span class="reqcb">';
+				echo '<input name="seo_checkbox" type="checkbox" onclick="return false;" onkeydown="return false;" /><label for="seo_checkbox"><span></span> ' . __( 'SEO by Yoast', $this->plugin_slug );
+
+				if ( isset( $options['yoastseo_focus_keyword'] ) && ! empty( $options['yoastseo_focus_keyword'] )) {
+					$keyword = 'y';
+				} else { $keyword = 'n'; }
+
+				if ( isset( $options['yoastseo_meta_description'] ) && ! empty( $options['yoastseo_meta_description'] )) {
+					$meta = 'y';
+				} else { $meta = 'n'; }
+
+				if ( ( isset( $options['yoastseo_focus_keyword'] ) && ! empty( $options['yoastseo_focus_keyword'] )) & ( isset( $options['yoastseo_meta_description'] ) && ! empty( $options['yoastseo_meta_description'] )) ) {
+					$and = 'y';
+				} else { $and = 'n'; }
+
+				echo ' &nbsp; ';
+				if ( $keyword == 'y' ) {
+					echo '<em>'. __( 'Keyword', $this->plugin_slug) .'</em>';
+				}
+				if ( $and == 'y' ) {
+					echo '<em> & </em>';
+				}
+				if ( $meta == 'y' ) {
+					echo '<em>'. __( 'Description', $this->plugin_slug) .'</em>';
+				}
+
+				echo '</label><br/>';
+				echo '</span>';
+				?>
+
+				<script>
+
+					function checkSEO() {
+
+						var keyword = '<?php echo $keyword; ?>';
+						var meta = '<?php echo $meta; ?>';
+
+						// WP SEO focus keyword field
+						var seoFocusElement = jQuery( "#yoast_wpseo_focuskw" );
+						var seoFocus = seoFocusElement.val();
+						// WP SEO meta description field
+						var seoDescElement = jQuery( "#yoast_wpseo_metadesc" );
+						var seoDesc = seoDescElement.val();
+
+						if ( ( keyword == 'y' ) && ( seoFocus == '' ) || ( meta == 'y' ) && ( seoDesc == '' ) ) {
+							jQuery( "input[type='checkbox'][name='seo_checkbox']").prop('checked', false);
+						}	
+						else {
+							jQuery( "input[type='checkbox'][name='seo_checkbox']").prop('checked', true);
+						}
+
+					}
+
+					// run when page first loads
+					jQuery( "input[type='checkbox'][name='seo_checkbox']").prop('checked', false);
+					// checkSEO();
+					// set check time
+					setInterval(checkSEO,1000);
+					
+				</script>
+
+				<?php
+				echo '</div>';
+
+			}
+		}
+
+
+		echo '<span id="rlbot">' . __( 'Drafts may be saved above', $this->plugin_slug ) . '</span>';
 
 
 		/**
@@ -643,29 +750,31 @@ class Post_Type_Requirements_Checklist_Admin {
 				var numberchecked = jQuery("#requirements_list input[type='checkbox']:checked");
 
 				if ( number.length == numberchecked.length ) {
-					jQuery( "#publish" ).show();
-					jQuery( "#rlbot" ).hide();
+					jQuery( "#publish" ).slideDown("slow");
+					jQuery( "#rlbot" ).slideUp("slow");
 					jQuery( "#requirements_list" ).css( "background-color", "transparent" );
 				} else {
-					jQuery( "#publish" ).hide();
-					jQuery( "#rlbot" ).show();
+					jQuery( "#publish" ).slideUp("slow");
+					jQuery( "#rlbot" ).slideDown("slow");
 					jQuery( "#requirements_list" ).css( "background-color", "#ffffe6" );
 				}
 
 				if ( number.length == 0 ) {
-					jQuery( "#requirements_list" ).hide();
+					jQuery( "#requirements_list" ).fadeOut();
 				} else {
-					jQuery( "#requirements_list" ).show();
+					jQuery( "#requirements_list" ).fadeIn();
 				}
 
 			}
 
 			// hide by default
-			jQuery( "#publish" ).hide();
+			//jQuery( "#publish" ).hide();
+			jQuery( "#rlbot" ).fadeIn();
 			// run when page first loads
 			hideShowPublish();
-			// check every helf second
-			setInterval(hideShowPublish,500);
+			jQuery( "#publish" ).fadeOut();
+			// check every second
+			setInterval(hideShowPublish,1000);
 		</script>
 		<?php
 

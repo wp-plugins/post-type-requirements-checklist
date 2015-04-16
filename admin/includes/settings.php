@@ -9,7 +9,10 @@ class post_type_requirements_checklist_settings {
 	 * @since    1.0
 	 * @var      string
 	 */
+
 	protected $plugin_slug = null;
+
+
 	/**
 	 * Instance of this class.
 	 *
@@ -17,6 +20,8 @@ class post_type_requirements_checklist_settings {
 	 * @var      object
 	 */
 	protected static $instance = null;
+
+
 	/**
 	 * Initialize the plugin by setting localization and loading public scripts
 	 * and styles.
@@ -30,6 +35,8 @@ class post_type_requirements_checklist_settings {
 		add_action( 'admin_init', array( $this, 'admin_init' ) );
 		add_action( 'admin_print_styles', array( $this, 'is_settings_page' ) );
 	}
+
+
 	/**
 	 * Return an instance of this class.
 	 *
@@ -43,6 +50,8 @@ class post_type_requirements_checklist_settings {
 		}
 		return self::$instance;
 	}
+
+
 	/**
 	 * enqueue styles
 	 *
@@ -55,6 +64,7 @@ class post_type_requirements_checklist_settings {
 		wp_enqueue_style('aptrc-settings-style', plugins_url( '../css/aptrc-settings.css', __FILE__ ) );
 
 	} // end is_settings_page
+
 
 	/**
 	 * Registering the Sections, Fields, and Settings.
@@ -72,7 +82,8 @@ class post_type_requirements_checklist_settings {
 				'excerpt' => '',
 				'categories' => '',
 				'tags' => '',
-				'custom' => ''
+				'customtaxonomies' => '',
+				'customfields' => ''
 			);
 
 		foreach ( $post_types as $pt ) {
@@ -82,17 +93,22 @@ class post_type_requirements_checklist_settings {
 				add_option( $section, apply_filters( $section . '_default_settings', $defaults ) );
 			}
 			$args = array( $section, get_option( $section ) );
+
+
+			// CONTENT REQUIREMENTS
+			// section
 			add_settings_section(
 				$pt,
-				__( 'Content Requirements:', $this->plugin_slug ),
+				__( 'Default Content Requirements', $this->plugin_slug ) .':',
 				'',
 				$section
 			);
 
+			// title field
 			if ( post_type_supports( $pt, 'title' )) {
 				add_settings_field(
 					'title_check',
-					__( 'Title:', $this->plugin_slug ),
+					__( 'Title', $this->plugin_slug ) .':',
 					array( $this, 'title_check_callback' ),
 					$section,
 					$pt,
@@ -100,10 +116,11 @@ class post_type_requirements_checklist_settings {
 				);
 			}
 
+			// wysiwyg editor
 			if ( post_type_supports( $pt, 'editor' )) {
 				add_settings_field(
 					'editor_check',
-					__( 'WYSIWYG Editor:', $this->plugin_slug ),
+					__( 'WYSIWYG Editor', $this->plugin_slug ) .':',
 					array( $this, 'editor_check_callback' ),
 					$section,
 					$pt,
@@ -111,10 +128,11 @@ class post_type_requirements_checklist_settings {
 				);
 			}
 
+			// featured image
 			if ( post_type_supports( $pt, 'thumbnail' )) {
 				add_settings_field(
 					'thumbnail_check',
-					__( 'Featured Image:', $this->plugin_slug ),
+					__( 'Featured Image', $this->plugin_slug ) .':',
 					array( $this, 'thumbnail_check_callback' ),
 					$section,
 					$pt,
@@ -122,10 +140,11 @@ class post_type_requirements_checklist_settings {
 				);
 			}
 
+			// excerpt
 			if ( post_type_supports( $pt, 'excerpt' ) ) {
 				add_settings_field(
 					'excerpt_check',
-					__( 'Excerpt:', $this->plugin_slug ),
+					__( 'Excerpt', $this->plugin_slug ) .':',
 					array( $this, 'excerpt_check_callback' ),
 					$section,
 					$pt,
@@ -133,16 +152,19 @@ class post_type_requirements_checklist_settings {
 				);
 			}
 
-			// category tag tip
-			if ( 'page' != $pt) {
+
+			// TAXONOMY REQUIREMENTS
+			if ( 'page' != $pt) {  // pages don't have taxonomies
 				$objtaxs = get_object_taxonomies( $pt );
 				if ( !( $objtaxs == null ) ) {
+					// section
 					add_settings_section(
 						'tax_' . $pt,
-						__( 'Taxonomy Requirements:', $this->plugin_slug ),
+						'<hr>' . __( 'Taxonomy Requirements', $this->plugin_slug ) .':',
 						'',
 						$section
 					);
+					// taxonomy tip
 					add_settings_field(
 						'CatTagTip',
 						__( '', $this->plugin_slug ),
@@ -154,10 +176,11 @@ class post_type_requirements_checklist_settings {
 				}
 			}
 
+			// category
 			if ( is_object_in_taxonomy( $pt, 'category' ) ) {
 				add_settings_field(
 					'categories_check',
-					__( 'Categories:', $this->plugin_slug ),
+					__( 'Categories', $this->plugin_slug ) .':',
 					array( $this, 'categories_check_callback' ),
 					$section,
 					'tax_' . $pt,
@@ -183,10 +206,11 @@ class post_type_requirements_checklist_settings {
 				);
 			}
 
+			// tag
 			if ( is_object_in_taxonomy( $pt, 'post_tag' ) ) {
 				add_settings_field(
 					'tags_check',
-					__( 'Tags:', $this->plugin_slug ),
+					__( 'Tags', $this->plugin_slug ) .':',
 					array( $this, 'tags_check_callback' ),
 					$section,
 					'tax_' . $pt,
@@ -212,6 +236,8 @@ class post_type_requirements_checklist_settings {
 				);
 			}	
 
+			// CUSTOM TAXONOMIES
+			// get all taxonomies in a post type
 			$argums = array(
 			    'public'   => true,
 			    '_builtin' => false
@@ -222,78 +248,185 @@ class post_type_requirements_checklist_settings {
 			$x = '1';
 			foreach ( $taxonomy_names as $tn ) {
 
-				if ( is_object_in_taxonomy( $pt, $tn ) ) {
-					if ( is_taxonomy_hierarchical( $tn ) ) {
-						add_settings_field(
-							'hierarchical_check_'.$x,
-							__( $tn.'s <span>(category):</span>', $this->plugin_slug ),
-							array( $this, 'hierarchical_check_callback_'.$x ),
-							$section,
-							'tax_' . $pt,
-							$args
-						);
-						// minimum
-						add_settings_field(
-							'hierarchical_dropdown_'.$x,
-							__( '', $this->plugin_slug ),
-							array( $this, 'hierarchical_dropdown_callback_'.$x ),
-							$section,
-							'tax_' . $pt,
-							$args
-						);
-						// maximum
-						add_settings_field(
-							'hierarchical_max_dropdown_'.$x,
-							__( '', $this->plugin_slug ),
-							array( $this, 'hierarchical_max_dropdown_callback_'.$x ),
-							$section,
-							'tax_' . $pt,
-							$args
-						);
+				// get that taxonomy's objects (so we can output the label later for plural name)
+				$thingargums = array(
+				  'name' => $tn
+				);
+				$thingoutputs = 'objects'; // or names
+				$things = get_taxonomies( $thingargums, $thingoutputs ); 
+
+				foreach ($things as $thing ) {
+
+					if ( is_object_in_taxonomy( $pt, $tn ) ) {
+						// categories are hierarchical
+						if ( is_taxonomy_hierarchical( $tn ) ) {
+							add_settings_field(
+								'hierarchical_check_'.$x,
+								$thing->label .' <span>(' . __('category', $this->plugin_slug ) .'):</span>',
+								array( $this, 'hierarchical_check_callback_'.$x ),
+								$section,
+								'tax_' . $pt,
+								$args
+							);
+							// minimum
+							add_settings_field(
+								'hierarchical_dropdown_'.$x,
+								__( '', $this->plugin_slug ),
+								array( $this, 'hierarchical_dropdown_callback_'.$x ),
+								$section,
+								'tax_' . $pt,
+								$args
+							);
+							// maximum
+							add_settings_field(
+								'hierarchical_max_dropdown_'.$x,
+								__( '', $this->plugin_slug ),
+								array( $this, 'hierarchical_max_dropdown_callback_'.$x ),
+								$section,
+								'tax_' . $pt,
+								$args
+							);
+						}
+
+						// tags are flat
+						else {
+							add_settings_field(
+								'flat_check'.$x,
+								$thing->label .' <span>(' . __('tag', $this->plugin_slug ) .'):</span>',
+								array( $this, 'flat_check_callback_'.$x ),
+								$section,
+								'tax_' . $pt,
+								$args
+							);
+							// minimum
+							add_settings_field(
+								'flat_dropdown'.$x,
+								__( '', $this->plugin_slug ),
+								array( $this, 'flat_dropdown_callback_'.$x ),
+								$section,
+								'tax_' . $pt,
+								$args
+							);
+							// maximum
+							add_settings_field(
+								'flat_max_dropdown_'.$x,
+								__( '', $this->plugin_slug ),
+								array( $this, 'flat_max_dropdown_callback_'.$x ),
+								$section,
+								'tax_' . $pt,
+								$args
+							);
+						}
+
 					}
 
-					else {
-						add_settings_field(
-							'flat_check'.$x,
-							__( $tn.'s <span>(tag):</span>', $this->plugin_slug ),
-							array( $this, 'flat_check_callback_'.$x ),
-							$section,
-							'tax_' . $pt,
-							$args
-						);
-						// minimum
-						add_settings_field(
-							'flat_dropdown'.$x,
-							__( '', $this->plugin_slug ),
-							array( $this, 'flat_dropdown_callback_'.$x ),
-							$section,
-							'tax_' . $pt,
-							$args
-						);
-						// maximum
-						add_settings_field(
-							'flat_max_dropdown_'.$x,
-							__( '', $this->plugin_slug ),
-							array( $this, 'flat_max_dropdown_callback_'.$x ),
-							$section,
-							'tax_' . $pt,
-							$args
-						);
-					}
 				}
 
-				$x++;					
+				$x++;	// advance				
 			}
 
 
 
+			// * @since 2.3
+			// CUSTOM FIELD REQUIREMENTS
+/*
+			// get a random post from this post type (we're still in the post type loop)	
+			$field_post_args = array(
+			    'post_type' => $pt,  // look in our post type (from the loop)
+			    'posts_per_page' => 1,  // get a random post (should have custom fields for our post type)
+		    );
+
+		    $id_ptrc_posts = get_posts( $field_post_args );
+		    foreach ( $id_ptrc_posts as $post ) {
+		    	
+		        $custom_post_id = $post->ID;  // get our random post's ID			
+				$getFieldsCustom = get_post_custom_values( $key = '', $post_id = $custom_post_id );  // get array of custom fields in this post type  * sort of *
+
+				// trim key values that are internal to WP
+				unset( $getFieldsCustom['_edit_lock'] );
+				unset( $getFieldsCustom['_edit_last'] );
+				// unset( $getFieldsCustom['_mini_post'] );
+				unset( $getFieldsCustom['_thumbnail_id'] );
+				
+				if ( !( $getFieldsCustom == null ) ) {  // if our post type has any custom fields...
+
+					// section
+					add_settings_section(
+						'fields_' . $pt,
+						'<hr>' . __( 'Custom Field Requirements', $this->plugin_slug ) .':',
+						'',
+						$section
+					);
+					// custom fields tip
+					add_settings_field(
+						'FieldsTip',
+						__( '', $this->plugin_slug ),
+						array( $this, 'FieldsTip' ),
+						$section,
+						'fields_' . $pt,
+						$args
+					);
+
+					foreach ( $getFieldsCustom as $ptrc_cf ) {
+
+						add_settings_field(
+							'fields' . $ptrc_cf,
+							__( $ptrc_cf . ':', $this->plugin_slug ),
+							array( $this, '' . $ptrc_cf ),
+							$section,
+							'fields_' . $pt,
+							$args
+						);
+
+					}
+
+				}
+			}
+*/
+
+			// * @since 2.3
+			// 3RD PARTY PLUGIN SUPPORT
+
+			//if (class_exists('WPSEO_Utils')) {	
+				// section
+				add_settings_section(
+					'3rdparty' . $pt,
+					'<hr>' . __( '3rd Party Plugin Support', $this->plugin_slug ) .':',
+					'',
+					$section
+				);
+
+				do_action( 'ptrc_extend_it' );
+
+				// WP SEO by Yoast
+				// focus keyword
+				add_settings_field(
+					'yoastseo_focus_keyword',
+					__( 'WordPress SEO by Yoast', $this->plugin_slug ) .':',
+					array( $this, 'yoastseo_focus_keyword_callback' ),
+					$section,
+					'3rdparty' . $pt,
+					$args
+				);
+				// meta description
+				add_settings_field(
+					'yoastseo_meta_description',
+					'',
+					array( $this, 'yoastseo_meta_description_callback' ),
+					$section,
+					'3rdparty' . $pt,
+					$args
+				);
+			//}
 
 
 			register_setting(
 				$section,
 				$section
 			);
+
 		}
+
 	} // end admin_init
 
 // TITLE
@@ -302,7 +435,7 @@ class post_type_requirements_checklist_settings {
 		$value  = isset( $args[1]['title_check'] ) ? $args[1]['title_check'] : '';
 
 		$checkhtml = '<input type="checkbox" id="title_check" name="' . $output . '" value="1"' . checked( 1, $value, false ) . ' />';
-		$checkhtml .= '<label for="title_check"> ' . __( 'check to require', $this->plugin_slug ) . '</label>';
+		$checkhtml .= '<label for="title_check"> ' . __( 'require', $this->plugin_slug ) . '</label>';
 		echo $checkhtml;
 	} // end 
 
@@ -312,7 +445,7 @@ class post_type_requirements_checklist_settings {
 		$value  = isset( $args[1]['editor_check'] ) ? $args[1]['editor_check'] : '';
 
 		$checkhtml = '<input type="checkbox" id="editor_check" name="' . $output . '" value="1"' . checked( 1, $value, false ) . ' />';
-		$checkhtml .= '<label for="editor_check"> ' . __( 'check to require', $this->plugin_slug ) . '</label>';
+		$checkhtml .= '<label for="editor_check"> ' . __( 'require', $this->plugin_slug ) . '</label>';
 		echo $checkhtml;
 	} // end 
 
@@ -322,7 +455,7 @@ class post_type_requirements_checklist_settings {
 		$value  = isset( $args[1]['thumbnail_check'] ) ? $args[1]['thumbnail_check'] : '';
 
 		$checkhtml = '<input type="checkbox" id="thumbnail_check" name="' . $output . '" value="1"' . checked( 1, $value, false ) . ' />';
-		$checkhtml .= '<label for="thumbnail_check"> ' . __( 'check to require', $this->plugin_slug ) . '</label>';
+		$checkhtml .= '<label for="thumbnail_check"> ' . __( 'require', $this->plugin_slug ) . '</label>';
 		echo $checkhtml;
 	} // end 
 
@@ -332,7 +465,7 @@ class post_type_requirements_checklist_settings {
 		$value  = isset( $args[1]['excerpt_check'] ) ? $args[1]['excerpt_check'] : '';
 
 		$checkhtml = '<input type="checkbox" id="excerpt_check" name="' . $output . '" value="1"' . checked( 1, $value, false ) . ' />';
-		$checkhtml .= '<label for="excerpt_check"> ' . __( 'check to require', $this->plugin_slug ) . '</label>';
+		$checkhtml .= '<label for="excerpt_check"> ' . __( 'require', $this->plugin_slug ) . '</label>';
 		echo $checkhtml;
 	} // end 
 
@@ -347,7 +480,7 @@ class post_type_requirements_checklist_settings {
 		$value  = isset( $args[1]['categories_check'] ) ? $args[1]['categories_check'] : '';
 
 		$checkhtml = '<input type="checkbox" id="categories_check" name="' . $output . '" value="1"' . checked( 1, $value, false ) . ' />';
-		$checkhtml .= '<label for="categories_check"> ' . __( 'check to require', $this->plugin_slug ) . '</label>';
+		$checkhtml .= '<label for="categories_check"> ' . __( 'require', $this->plugin_slug ) . '</label>';
 		echo $checkhtml;
 	}
 
@@ -384,7 +517,7 @@ class post_type_requirements_checklist_settings {
 		$value  = isset( $args[1]['tags_check'] ) ? $args[1]['tags_check'] : '';
 
 		$checkhtml = '<input type="checkbox" id="tags_check" name="' . $output . '" value="1"' . checked( 1, $value, false ) . ' />';
-		$checkhtml .= '<label for="tags_check"> ' . __( 'check to require', $this->plugin_slug ) . '</label>';
+		$checkhtml .= '<label for="tags_check"> ' . __( 'require', $this->plugin_slug ) . '</label>';
 		echo $checkhtml;
 	} // end tags_check_callback
 
@@ -430,7 +563,7 @@ class post_type_requirements_checklist_settings {
 		$value  = isset( $args[1]['hierarchical_check_1'] ) ? $args[1]['hierarchical_check_1'] : '';
 
 		$checkhtml = '<input type="checkbox" id="hierarchical_check_1" name="' . $output . '" value="1"' . checked( 1, $value, false ) . ' />';
-		$checkhtml .= '<label for="hierarchical_check_1"> ' . __( 'check to require', $this->plugin_slug ) . '</label>';
+		$checkhtml .= '<label for="hierarchical_check_1"> ' . __( 'require', $this->plugin_slug ) . '</label>';
 		echo $checkhtml;
 	}
 
@@ -466,7 +599,7 @@ class post_type_requirements_checklist_settings {
 		$value  = isset( $args[1]['flat_check_1'] ) ? $args[1]['flat_check_1'] : '';
 
 		$checkhtml = '<input type="checkbox" id="flat_check_1" name="' . $output . '" value="1"' . checked( 1, $value, false ) . ' />';
-		$checkhtml .= '<label for="flat_check_1"> ' . __( 'check to require', $this->plugin_slug ) . '</label>';
+		$checkhtml .= '<label for="flat_check_1"> ' . __( 'require', $this->plugin_slug ) . '</label>';
 		echo $checkhtml;
 	} 
 
@@ -511,7 +644,7 @@ class post_type_requirements_checklist_settings {
 		$value  = isset( $args[1]['hierarchical_check_2'] ) ? $args[1]['hierarchical_check_2'] : '';
 
 		$checkhtml = '<input type="checkbox" id="hierarchical_check_2" name="' . $output . '" value="1"' . checked( 1, $value, false ) . ' />';
-		$checkhtml .= '<label for="hierarchical_check_2"> ' . __( 'check to require', $this->plugin_slug ) . '</label>';
+		$checkhtml .= '<label for="hierarchical_check_2"> ' . __( 'require', $this->plugin_slug ) . '</label>';
 		echo $checkhtml;
 	} 
 
@@ -547,7 +680,7 @@ class post_type_requirements_checklist_settings {
 		$value  = isset( $args[1]['flat_check_2'] ) ? $args[1]['flat_check_2'] : '';
 
 		$checkhtml = '<input type="checkbox" id="flat_check_2" name="' . $output . '" value="1"' . checked( 1, $value, false ) . ' />';
-		$checkhtml .= '<label for="flat_check_2"> ' . __( 'check to require', $this->plugin_slug ) . '</label>';
+		$checkhtml .= '<label for="flat_check_2"> ' . __( 'require', $this->plugin_slug ) . '</label>';
 		echo $checkhtml;
 	} 
 
@@ -592,7 +725,7 @@ class post_type_requirements_checklist_settings {
 		$value  = isset( $args[1]['hierarchical_check_3'] ) ? $args[1]['hierarchical_check_3'] : '';
 
 		$checkhtml = '<input type="checkbox" id="hierarchical_check_3" name="' . $output . '" value="1"' . checked( 1, $value, false ) . ' />';
-		$checkhtml .= '<label for="hierarchical_check_3"> ' . __( 'check to require', $this->plugin_slug ) . '</label>';
+		$checkhtml .= '<label for="hierarchical_check_3"> ' . __( 'require', $this->plugin_slug ) . '</label>';
 		echo $checkhtml;
 	} 
 
@@ -628,7 +761,7 @@ class post_type_requirements_checklist_settings {
 		$value  = isset( $args[1]['flat_check_3'] ) ? $args[1]['flat_check_3'] : '';
 
 		$checkhtml = '<input type="checkbox" id="flat_check_3" name="' . $output . '" value="1"' . checked( 1, $value, false ) . ' />';
-		$checkhtml .= '<label for="flat_check_3"> ' . __( 'check to require', $this->plugin_slug ) . '</label>';
+		$checkhtml .= '<label for="flat_check_3"> ' . __( 'require', $this->plugin_slug ) . '</label>';
 		echo $checkhtml;
 	} 
 
@@ -673,7 +806,7 @@ class post_type_requirements_checklist_settings {
 		$value  = isset( $args[1]['hierarchical_check_4'] ) ? $args[1]['hierarchical_check_4'] : '';
 
 		$checkhtml = '<input type="checkbox" id="hierarchical_check_4" name="' . $output . '" value="1"' . checked( 1, $value, false ) . ' />';
-		$checkhtml .= '<label for="hierarchical_check_4"> ' . __( 'check to require', $this->plugin_slug ) . '</label>';
+		$checkhtml .= '<label for="hierarchical_check_4"> ' . __( 'require', $this->plugin_slug ) . '</label>';
 		echo $checkhtml;
 	} 
 
@@ -709,7 +842,7 @@ class post_type_requirements_checklist_settings {
 		$value  = isset( $args[1]['flat_check_4'] ) ? $args[1]['flat_check_4'] : '';
 
 		$checkhtml = '<input type="checkbox" id="flat_check_4" name="' . $output . '" value="1"' . checked( 1, $value, false ) . ' />';
-		$checkhtml .= '<label for="flat_check_4"> ' . __( 'check to require', $this->plugin_slug ) . '</label>';
+		$checkhtml .= '<label for="flat_check_4"> ' . __( 'require', $this->plugin_slug ) . '</label>';
 		echo $checkhtml;
 	} 
 
@@ -754,7 +887,7 @@ class post_type_requirements_checklist_settings {
 		$value  = isset( $args[1]['hierarchical_check_5'] ) ? $args[1]['hierarchical_check_5'] : '';
 
 		$checkhtml = '<input type="checkbox" id="hierarchical_check_5" name="' . $output . '" value="1"' . checked( 1, $value, false ) . ' />';
-		$checkhtml .= '<label for="hierarchical_check_5"> ' . __( 'check to require', $this->plugin_slug ) . '</label>';
+		$checkhtml .= '<label for="hierarchical_check_5"> ' . __( 'require', $this->plugin_slug ) . '</label>';
 		echo $checkhtml;
 	} 
 
@@ -790,7 +923,7 @@ class post_type_requirements_checklist_settings {
 		$value  = isset( $args[1]['flat_check_5'] ) ? $args[1]['flat_check_5'] : '';
 
 		$checkhtml = '<input type="checkbox" id="flat_check_5" name="' . $output . '" value="1"' . checked( 1, $value, false ) . ' />';
-		$checkhtml .= '<label for="flat_check_5"> ' . __( 'check to require', $this->plugin_slug ) . '</label>';
+		$checkhtml .= '<label for="flat_check_5"> ' . __( 'require', $this->plugin_slug ) . '</label>';
 		echo $checkhtml;
 	} 
 
@@ -828,6 +961,31 @@ class post_type_requirements_checklist_settings {
 	    	$html .= '<label class="dropdown max" for="flat_max_dropdown_5"> ' . __( 'maximum allowed', $this->plugin_slug ) . '</label>';		     
 	    	echo $html;
 		} // end 
+
+	public function FieldsTip( $args ) {
+		$html = '<div id="toggle"><p>' . __( 'Due to the way 3rd party plugins handle per post requirements and conditional logic for custom fields, requirements should be set from those plugins\' settings pages.  For custom fields that don\'t use logic controlled by a 3rd party plugin, or for hard-coded custom fields, requirements can be set by entering the field slug in the space provided.
+			', $this->plugin_slug ) . '</p></div>';
+	    echo $html;
+	}
+
+// WORDPRESS SEO BY YOAST
+	public function yoastseo_focus_keyword_callback( $args ) {
+		$output = $args[0].'[yoastseo_focus_keyword]';
+		$value  = isset( $args[1]['yoastseo_focus_keyword'] ) ? $args[1]['yoastseo_focus_keyword'] : '';
+
+		$checkhtml = '<input type="checkbox" id="yoastseo_focus_keyword" name="' . $output . '" value="1"' . checked( 1, $value, false ) . ' />';
+		$checkhtml .= '<label for="yoastseo_focus_keyword"> ' . __( 'require Focus Keyword', $this->plugin_slug ) . '</label>';
+		echo $checkhtml;
+	} // end 
+
+	public function yoastseo_meta_description_callback( $args ) {
+		$output = $args[0].'[yoastseo_meta_description]';
+		$value  = isset( $args[1]['yoastseo_meta_description'] ) ? $args[1]['yoastseo_meta_description'] : '';
+
+		$checkhtml = '<input type="checkbox" id="yoastseo_meta_description" class="check" name="' . $output . '" value="1"' . checked( 1, $value, false ) . ' />';
+		$checkhtml .= '<label class="check" for="yoastseo_meta_description"> ' . __( 'require Meta Description', $this->plugin_slug ) . '</label>';
+		echo $checkhtml;
+	} // end 
 
 }
 post_type_requirements_checklist_settings::get_instance();

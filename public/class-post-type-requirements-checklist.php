@@ -20,7 +20,7 @@ class post_type_requirements_checklist {
 	 *
 	 * @var     string
 	 */
-	const VERSION = '1.1';
+	const VERSION = '2.3';
 
 	/**
 	 * Unique identifier for your plugin.
@@ -84,6 +84,7 @@ class post_type_requirements_checklist {
 
 		$args = array(
 		   'show_ui' => true,
+		   'public' => true,  // @since 2.3
 		);
 
 		$output = 'names'; // names or objects, note names is the default

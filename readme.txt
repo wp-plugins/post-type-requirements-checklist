@@ -4,7 +4,7 @@ Author URI: http://dauid.us
 Tags: requirements, require, required, requirement, publish, post type, metabox, wysiwyg, featured image, author, excerpt
 Requires at least: 3.1
 Tested up to: 4.1.1
-Stable tag: 2.2.1
+Stable tag: 2.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -21,6 +21,7 @@ Requirements Checklist allows admins to require content to be entered before a p
 * categories (allows for min and max number of categories, 1-3 & infinite)
 * tags (allows for min and max number of tags, 1-5, 7, 10, 15, 25 & infinite)
 * up to 5 custom taxonomies per post type (allows for min and max number of categories/tags, as detailed above)
+* support for WordPress SEO by Yoast (Focus Keyword and Meta Description fields only)
 
 Requirements Checklist uses OOP standards to add options only for those metaboxes which are supported for each post type and to execute code only on those pages where it is needed.  It works especially well for sites with many custom post types that require content to be entered in a specific way (ie. when a post type requires a custom excerpt or when the absence of a featured image will break the intended look of a post).  Think of any theme or plugin that supports an image slider powered by a featured image, and you can surely see where this plugin will come in handy.
 
@@ -70,6 +71,12 @@ Of course!  Just save as a draft as normal.
 
 == Changelog ==
 
+= 2.3 =
+* allow for add-on plugins in settings API
+* adds support for WordPress SEO by Yoast
+* now works with Drag & Drop Featured Image plugin (user request)
+* adds subtle animations to edit page when requirements met
+
 = 2.2.1 =
 * fixed a bug which displays errors for some users
 
@@ -98,6 +105,9 @@ Of course!  Just save as a draft as normal.
 * initial release
 
 == Upgrade Notice ==
+
+= 2.3 =
+Adds support for WordPress SEO by Yoast and Drag & Drop Featured Images plugins.
 
 = 2.2.1 =
 Fixes a bug which displays errors for some users

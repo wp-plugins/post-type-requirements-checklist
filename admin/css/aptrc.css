@@ -46,7 +46,8 @@
 	background: url('../images/yes.png') no-repeat 0px 2px;
 }
 
-.submitbox #requirements_list #custom-taxonomies {
+.submitbox #requirements_list #custom-taxonomies,
+.submitbox #requirements_list #builtin-taxonomies {
 	margin-top: 10px;
 }
 
