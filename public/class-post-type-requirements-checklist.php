@@ -313,7 +313,7 @@ class post_type_requirements_checklist {
 		$domain = $this->plugin_slug;
 		$locale = apply_filters( 'plugin_locale', get_locale(), $domain );
 
-		load_textdomain( $domain, trailingslashit( WP_PLUGIN_DIR ) . 'languages/' . $locale . '.mo' );
+		load_textdomain( $domain, trailingslashit( WP_PLUGIN_DIR ) . 'languages/' . $locale . '.pot' );
 
 	}
 
