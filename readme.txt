@@ -4,7 +4,7 @@ Author URI: http://dauid.us
 Tags: requirements, require, required, requirement, publish, post type, metabox, wysiwyg, featured image, author, excerpt
 Requires at least: 3.1
 Tested up to: 4.1.1
-Stable tag: 2.3
+Stable tag: 2.3.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -28,6 +28,8 @@ Requirements Checklist uses OOP standards to add options only for those metaboxe
 To be clear, Requirements Checklist does absolutely nothing to the front-end of your site.  It simply forces certain types of data to be added to the add/edit page/post admin screen in order for that content to be published or updated.  If content requirements are not met, a draft can still be saved.
 
 Requirements Checklist works with multisite networks and allows users to define settings on a per-site basis.
+
+As of version 2.3.1, Requirements Checklist has support for localization.  To translate this plugin into your language, please contact the author.
 
 == Installation ==
 
@@ -72,6 +74,9 @@ Of course!  Just save as a draft as normal.
 == Changelog ==
 
 = 2.3 =
+* localization support
+
+= 2.3 =
 * allow for add-on plugins in settings API
 * adds support for WordPress SEO by Yoast
 * now works with Drag & Drop Featured Image plugin (user request)
@@ -105,6 +110,9 @@ Of course!  Just save as a draft as normal.
 * initial release
 
 == Upgrade Notice ==
+
+= 2.3 =
+Can now be translated in your language!
 
 = 2.3 =
 Adds support for WordPress SEO by Yoast and Drag & Drop Featured Images plugins.

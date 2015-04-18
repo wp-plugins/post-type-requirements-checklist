@@ -14,7 +14,7 @@
  * Plugin Name:       Requirements Checklist
  * Plugin URI:        http://dauid.us
  * Description:       Allows admins to set required content to be entered before a page/post or custom post type can be published.
- * Version:           2.3
+ * Version:           2.3.1
  * Author:            Dave Winter
  * Author URI:        http://dauid.us
  * Text Domain: 	  post-type-requirements-checklist
@@ -43,6 +43,9 @@ register_activation_hook( __FILE__, array( 'Post_Type_Requirements_Checklist', '
 register_deactivation_hook( __FILE__, array( 'Post_Type_Requirements_Checklist', 'deactivate' ) );
 
 add_action( 'plugins_loaded', array( 'Post_Type_Requirements_Checklist', 'get_instance' ) );
+
+
+
 
 /*----------------------------------------------------------------------------*
  * Dashboard and Administrative Functionality

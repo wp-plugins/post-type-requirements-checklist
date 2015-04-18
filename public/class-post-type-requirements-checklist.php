@@ -310,10 +310,10 @@ class post_type_requirements_checklist {
 	 */
 	public function load_plugin_textdomain() {
 
-		$domain = $this->plugin_slug;
+		$domain = 'post-type-requirements-checklist';
 		$locale = apply_filters( 'plugin_locale', get_locale(), $domain );
 
-		load_textdomain( $domain, trailingslashit( WP_PLUGIN_DIR ) . 'languages/' . $locale . '.pot' );
+		load_textdomain( $domain, trailingslashit( WP_PLUGIN_DIR ) . 'languages/post-type-requirements-checklist' . $locale . '.mo' );
 
 	}
 

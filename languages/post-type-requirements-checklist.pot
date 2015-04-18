@@ -2,10 +2,10 @@
 # This file is distributed under the same license as the Requirements Checklist package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Requirements Checklist 2.3\n"
+"Project-Id-Version: Requirements Checklist 2.2.1\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/post-type-"
 "requirements-checklist\n"
-"POT-Creation-Date: 2015-04-17 20:57:24+00:00\n"
+"POT-Creation-Date: 2015-03-16 20:55:24+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -13,7 +13,7 @@ msgstr ""
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 
-#. #-#-#-#-#  plugin.pot (Requirements Checklist 2.3)  #-#-#-#-#
+#. #-#-#-#-#  plugin.pot (Requirements Checklist 2.2.1)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: admin/class-post-type-requirements-checklist-admin.php:119
 #: admin/class-post-type-requirements-checklist-admin.php:120
@@ -29,94 +29,84 @@ msgid "Requirements Checklist:"
 msgstr ""
 
 #: admin/class-post-type-requirements-checklist-admin.php:214
-#: admin/includes/settings.php:111
 msgid "Title"
 msgstr ""
 
-#: admin/class-post-type-requirements-checklist-admin.php:256
-#: admin/includes/settings.php:123
+#: admin/class-post-type-requirements-checklist-admin.php:255
 msgid "WYSIWYG Editor"
 msgstr ""
 
-#: admin/class-post-type-requirements-checklist-admin.php:294
-#: admin/includes/settings.php:135
+#: admin/class-post-type-requirements-checklist-admin.php:292
 msgid "Featured Image"
 msgstr ""
 
-#: admin/class-post-type-requirements-checklist-admin.php:336
-#: admin/includes/settings.php:147
+#: admin/class-post-type-requirements-checklist-admin.php:327
 msgid "Excerpt"
 msgstr ""
 
-#: admin/class-post-type-requirements-checklist-admin.php:392
-#: admin/includes/settings.php:183
+#: admin/class-post-type-requirements-checklist-admin.php:378
 msgid "Categories"
 msgstr ""
 
-#: admin/class-post-type-requirements-checklist-admin.php:398
-#: admin/class-post-type-requirements-checklist-admin.php:455
-#: admin/class-post-type-requirements-checklist-admin.php:544
-#: admin/class-post-type-requirements-checklist-admin.php:601
+#: admin/class-post-type-requirements-checklist-admin.php:384
+#: admin/class-post-type-requirements-checklist-admin.php:440
+#: admin/class-post-type-requirements-checklist-admin.php:520
+#: admin/class-post-type-requirements-checklist-admin.php:576
 msgid "exactly "
 msgstr ""
 
-#: admin/class-post-type-requirements-checklist-admin.php:449
-#: admin/includes/settings.php:213
+#: admin/class-post-type-requirements-checklist-admin.php:434
 msgid "Tags"
 msgstr ""
 
-#: admin/class-post-type-requirements-checklist-admin.php:669
-msgid "SEO by Yoast"
+#: admin/class-post-type-requirements-checklist-admin.php:629
+msgid "Publishing disabled until requirements met  Drafts can be saved above"
 msgstr ""
 
-#: admin/class-post-type-requirements-checklist-admin.php:685
-msgid "Keyword"
+#: admin/includes/settings.php:87
+msgid "Content Requirements:"
 msgstr ""
 
-#: admin/class-post-type-requirements-checklist-admin.php:691
-msgid "Description"
+#: admin/includes/settings.php:95
+msgid "Title:"
 msgstr ""
 
-#: admin/class-post-type-requirements-checklist-admin.php:736
-msgid "Drafts may be saved above"
+#: admin/includes/settings.php:106
+msgid "WYSIWYG Editor:"
 msgstr ""
 
-#: admin/includes/settings.php:102
-msgid "Default Content Requirements"
+#: admin/includes/settings.php:117
+msgid "Featured Image:"
 msgstr ""
 
-#: admin/includes/settings.php:163
-msgid "Taxonomy Requirements"
+#: admin/includes/settings.php:128
+msgid "Excerpt:"
 msgstr ""
 
-#: admin/includes/settings.php:265
-msgid "category"
+#: admin/includes/settings.php:142
+msgid "Taxonomy Requirements:"
 msgstr ""
 
-#: admin/includes/settings.php:295
-msgid "tag"
+#: admin/includes/settings.php:160
+msgid "Categories:"
 msgstr ""
 
-#: admin/includes/settings.php:394
-msgid "3rd Party Plugin Support"
+#: admin/includes/settings.php:189
+msgid "Tags:"
 msgstr ""
 
-#: admin/includes/settings.php:405
-msgid "WordPress SEO by Yoast"
+#: admin/includes/settings.php:305 admin/includes/settings.php:315
+#: admin/includes/settings.php:325 admin/includes/settings.php:335
+#: admin/includes/settings.php:350 admin/includes/settings.php:387
+#: admin/includes/settings.php:433 admin/includes/settings.php:469
+#: admin/includes/settings.php:514 admin/includes/settings.php:550
+#: admin/includes/settings.php:595 admin/includes/settings.php:631
+#: admin/includes/settings.php:676 admin/includes/settings.php:712
+#: admin/includes/settings.php:757 admin/includes/settings.php:793
+msgid "check to require"
 msgstr ""
 
-#: admin/includes/settings.php:438 admin/includes/settings.php:448
-#: admin/includes/settings.php:458 admin/includes/settings.php:468
-#: admin/includes/settings.php:483 admin/includes/settings.php:520
-#: admin/includes/settings.php:566 admin/includes/settings.php:602
-#: admin/includes/settings.php:647 admin/includes/settings.php:683
-#: admin/includes/settings.php:728 admin/includes/settings.php:764
-#: admin/includes/settings.php:809 admin/includes/settings.php:845
-#: admin/includes/settings.php:890 admin/includes/settings.php:926
-msgid "require"
-msgstr ""
-
-#: admin/includes/settings.php:473
+#: admin/includes/settings.php:340
 msgid ""
 "As a general rule, a post should have a maximum of 3 categories and no more "
 "than 30 combined Categories, Tags and Custom Taxonomies - both for SEO value "
@@ -125,57 +115,39 @@ msgid ""
 "taxonomies."
 msgstr ""
 
-#: admin/includes/settings.php:496 admin/includes/settings.php:535
-#: admin/includes/settings.php:579 admin/includes/settings.php:617
-#: admin/includes/settings.php:660 admin/includes/settings.php:698
-#: admin/includes/settings.php:741 admin/includes/settings.php:779
-#: admin/includes/settings.php:822 admin/includes/settings.php:860
-#: admin/includes/settings.php:903 admin/includes/settings.php:941
+#: admin/includes/settings.php:363 admin/includes/settings.php:402
+#: admin/includes/settings.php:446 admin/includes/settings.php:484
+#: admin/includes/settings.php:527 admin/includes/settings.php:565
+#: admin/includes/settings.php:608 admin/includes/settings.php:646
+#: admin/includes/settings.php:689 admin/includes/settings.php:727
+#: admin/includes/settings.php:770 admin/includes/settings.php:808
 msgid "minimum required to publish"
 msgstr ""
 
-#: admin/includes/settings.php:510 admin/includes/settings.php:555
-#: admin/includes/settings.php:593 admin/includes/settings.php:637
-#: admin/includes/settings.php:674 admin/includes/settings.php:718
-#: admin/includes/settings.php:755 admin/includes/settings.php:799
-#: admin/includes/settings.php:836 admin/includes/settings.php:880
-#: admin/includes/settings.php:917 admin/includes/settings.php:961
+#: admin/includes/settings.php:377 admin/includes/settings.php:422
+#: admin/includes/settings.php:460 admin/includes/settings.php:504
+#: admin/includes/settings.php:541 admin/includes/settings.php:585
+#: admin/includes/settings.php:622 admin/includes/settings.php:666
+#: admin/includes/settings.php:703 admin/includes/settings.php:747
+#: admin/includes/settings.php:784 admin/includes/settings.php:828
 msgid "maximum allowed"
 msgstr ""
 
-#: admin/includes/settings.php:966
-msgid ""
-"Due to the way 3rd party plugins handle per post requirements and "
-"conditional logic for custom fields, requirements should be set from those "
-"plugins' settings pages.  For custom fields that don't use logic controlled "
-"by a 3rd party plugin, or for hard-coded custom fields, requirements can be "
-"set by entering the field slug in the space provided.\n"
-"\t\t\t"
-msgstr ""
-
-#: admin/includes/settings.php:977
-msgid "require Focus Keyword"
-msgstr ""
-
-#: admin/includes/settings.php:986
-msgid "require Meta Description"
-msgstr ""
-
-#: public/class-post-type-requirements-checklist.php:270
+#: public/class-post-type-requirements-checklist.php:269
 msgid ""
 "Plugin activated! Set content requirements for your site <strong><a href=\"%s"
 "\">here</a></strong>."
 msgstr ""
 
-#: public/class-post-type-requirements-checklist.php:295
+#: public/class-post-type-requirements-checklist.php:294
 msgid ""
 "You have deleted the Requirements Checklist plugin. All settings associated "
 "with the plugin have been removed from the database."
 msgstr ""
 
-#. #-#-#-#-#  plugin.pot (Requirements Checklist 2.3)  #-#-#-#-#
+#. #-#-#-#-#  plugin.pot (Requirements Checklist 2.2.1)  #-#-#-#-#
 #. Plugin URI of the plugin/theme
-#. #-#-#-#-#  plugin.pot (Requirements Checklist 2.3)  #-#-#-#-#
+#. #-#-#-#-#  plugin.pot (Requirements Checklist 2.2.1)  #-#-#-#-#
 #. Author URI of the plugin/theme
 msgid "http://dauid.us"
 msgstr ""
