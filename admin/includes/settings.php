@@ -99,7 +99,7 @@ class post_type_requirements_checklist_settings {
 			// section
 			add_settings_section(
 				$pt,
-				__( 'Default Content Requirements', $this->plugin_slug ) .':',
+				__( 'Default Content Requirements', 'aptrc' ) .':',
 				'',
 				$section
 			);
@@ -108,7 +108,7 @@ class post_type_requirements_checklist_settings {
 			if ( post_type_supports( $pt, 'title' )) {
 				add_settings_field(
 					'title_check',
-					__( 'Title', $this->plugin_slug ) .':',
+					__( 'Title', 'aptrc' ) . ':',
 					array( $this, 'title_check_callback' ),
 					$section,
 					$pt,
@@ -120,7 +120,7 @@ class post_type_requirements_checklist_settings {
 			if ( post_type_supports( $pt, 'editor' )) {
 				add_settings_field(
 					'editor_check',
-					__( 'WYSIWYG Editor', $this->plugin_slug ) .':',
+					__( 'WYSIWYG Editor', 'aptrc' ) .':',
 					array( $this, 'editor_check_callback' ),
 					$section,
 					$pt,
@@ -132,7 +132,7 @@ class post_type_requirements_checklist_settings {
 			if ( post_type_supports( $pt, 'thumbnail' )) {
 				add_settings_field(
 					'thumbnail_check',
-					__( 'Featured Image', $this->plugin_slug ) .':',
+					__( 'Featured Image', 'aptrc' ) .':',
 					array( $this, 'thumbnail_check_callback' ),
 					$section,
 					$pt,
@@ -144,7 +144,7 @@ class post_type_requirements_checklist_settings {
 			if ( post_type_supports( $pt, 'excerpt' ) ) {
 				add_settings_field(
 					'excerpt_check',
-					__( 'Excerpt', $this->plugin_slug ) .':',
+					__( 'Excerpt', 'aptrc' ) .':',
 					array( $this, 'excerpt_check_callback' ),
 					$section,
 					$pt,
@@ -160,14 +160,14 @@ class post_type_requirements_checklist_settings {
 					// section
 					add_settings_section(
 						'tax_' . $pt,
-						'<hr>' . __( 'Taxonomy Requirements', $this->plugin_slug ) .':',
+						'<hr>' . __( 'Taxonomy Requirements', 'aptrc' ) .':',
 						'',
 						$section
 					);
 					// taxonomy tip
 					add_settings_field(
 						'CatTagTip',
-						__( '', $this->plugin_slug ),
+						'',
 						array( $this, 'CatTagTip' ),
 						$section,
 						'tax_' . $pt,
@@ -180,7 +180,7 @@ class post_type_requirements_checklist_settings {
 			if ( is_object_in_taxonomy( $pt, 'category' ) ) {
 				add_settings_field(
 					'categories_check',
-					__( 'Categories', $this->plugin_slug ) .':',
+					__( 'Categories', 'aptrc' ) .':',
 					array( $this, 'categories_check_callback' ),
 					$section,
 					'tax_' . $pt,
@@ -189,7 +189,7 @@ class post_type_requirements_checklist_settings {
 				// minimum
 				add_settings_field(
 					'categories_dropdown',
-					__( '', $this->plugin_slug ),
+					'',
 					array( $this, 'categories_dropdown_callback' ),
 					$section,
 					'tax_' . $pt,
@@ -198,7 +198,7 @@ class post_type_requirements_checklist_settings {
 				// maximum
 				add_settings_field(
 					'categories_max_dropdown',
-					__( '', $this->plugin_slug ),
+					'',
 					array( $this, 'categories_max_dropdown_callback' ),
 					$section,
 					'tax_' . $pt,
@@ -210,7 +210,7 @@ class post_type_requirements_checklist_settings {
 			if ( is_object_in_taxonomy( $pt, 'post_tag' ) ) {
 				add_settings_field(
 					'tags_check',
-					__( 'Tags', $this->plugin_slug ) .':',
+					__( 'Tags', 'aptrc' ) .':',
 					array( $this, 'tags_check_callback' ),
 					$section,
 					'tax_' . $pt,
@@ -219,7 +219,7 @@ class post_type_requirements_checklist_settings {
 				// minimum
 				add_settings_field(
 					'tags_dropdown',
-					__( '', $this->plugin_slug ),
+					'',
 					array( $this, 'tags_dropdown_callback' ),
 					$section,
 					'tax_' . $pt,
@@ -228,7 +228,7 @@ class post_type_requirements_checklist_settings {
 				// maximum
 				add_settings_field(
 					'tags_max_dropdown',
-					__( '', $this->plugin_slug ),
+					'',
 					array( $this, 'tags_max_dropdown_callback' ),
 					$section,
 					'tax_' . $pt,
@@ -262,7 +262,7 @@ class post_type_requirements_checklist_settings {
 						if ( is_taxonomy_hierarchical( $tn ) ) {
 							add_settings_field(
 								'hierarchical_check_'.$x,
-								$thing->label .' <span>(' . __('category', $this->plugin_slug ) .'):</span>',
+								$thing->label .' <span>(' . __('category', 'aptrc' ) .'):</span>',
 								array( $this, 'hierarchical_check_callback_'.$x ),
 								$section,
 								'tax_' . $pt,
@@ -271,7 +271,7 @@ class post_type_requirements_checklist_settings {
 							// minimum
 							add_settings_field(
 								'hierarchical_dropdown_'.$x,
-								__( '', $this->plugin_slug ),
+								'',
 								array( $this, 'hierarchical_dropdown_callback_'.$x ),
 								$section,
 								'tax_' . $pt,
@@ -280,7 +280,7 @@ class post_type_requirements_checklist_settings {
 							// maximum
 							add_settings_field(
 								'hierarchical_max_dropdown_'.$x,
-								__( '', $this->plugin_slug ),
+								'',
 								array( $this, 'hierarchical_max_dropdown_callback_'.$x ),
 								$section,
 								'tax_' . $pt,
@@ -292,7 +292,7 @@ class post_type_requirements_checklist_settings {
 						else {
 							add_settings_field(
 								'flat_check'.$x,
-								$thing->label .' <span>(' . __('tag', $this->plugin_slug ) .'):</span>',
+								$thing->label .' <span>(' . __('tag', 'aptrc' ) .'):</span>',
 								array( $this, 'flat_check_callback_'.$x ),
 								$section,
 								'tax_' . $pt,
@@ -301,7 +301,7 @@ class post_type_requirements_checklist_settings {
 							// minimum
 							add_settings_field(
 								'flat_dropdown'.$x,
-								__( '', $this->plugin_slug ),
+								'',
 								array( $this, 'flat_dropdown_callback_'.$x ),
 								$section,
 								'tax_' . $pt,
@@ -310,7 +310,7 @@ class post_type_requirements_checklist_settings {
 							// maximum
 							add_settings_field(
 								'flat_max_dropdown_'.$x,
-								__( '', $this->plugin_slug ),
+								'',
 								array( $this, 'flat_max_dropdown_callback_'.$x ),
 								$section,
 								'tax_' . $pt,
@@ -353,14 +353,14 @@ class post_type_requirements_checklist_settings {
 					// section
 					add_settings_section(
 						'fields_' . $pt,
-						'<hr>' . __( 'Custom Field Requirements', $this->plugin_slug ) .':',
+						'<hr>' . __( 'Custom Field Requirements', 'aptrc' ) .':',
 						'',
 						$section
 					);
 					// custom fields tip
 					add_settings_field(
 						'FieldsTip',
-						__( '', $this->plugin_slug ),
+						__( '', 'aptrc' ),
 						array( $this, 'FieldsTip' ),
 						$section,
 						'fields_' . $pt,
@@ -371,7 +371,7 @@ class post_type_requirements_checklist_settings {
 
 						add_settings_field(
 							'fields' . $ptrc_cf,
-							__( $ptrc_cf . ':', $this->plugin_slug ),
+							__( $ptrc_cf . ':', 'aptrc' ),
 							array( $this, '' . $ptrc_cf ),
 							$section,
 							'fields_' . $pt,
@@ -391,7 +391,7 @@ class post_type_requirements_checklist_settings {
 				// section
 				add_settings_section(
 					'3rdparty' . $pt,
-					'<hr>' . __( '3rd Party Plugin Support', $this->plugin_slug ) .':',
+					'<hr>' . __( '3rd Party Plugin Support', 'aptrc' ) .':',
 					'',
 					$section
 				);
@@ -402,7 +402,7 @@ class post_type_requirements_checklist_settings {
 				// focus keyword
 				add_settings_field(
 					'yoastseo_focus_keyword',
-					__( 'WordPress SEO by Yoast', $this->plugin_slug ) .':',
+					__( 'WordPress SEO by Yoast', 'aptrc' ) .':',
 					array( $this, 'yoastseo_focus_keyword_callback' ),
 					$section,
 					'3rdparty' . $pt,
@@ -435,7 +435,7 @@ class post_type_requirements_checklist_settings {
 		$value  = isset( $args[1]['title_check'] ) ? $args[1]['title_check'] : '';
 
 		$checkhtml = '<input type="checkbox" id="title_check" name="' . $output . '" value="1"' . checked( 1, $value, false ) . ' />';
-		$checkhtml .= '<label for="title_check"> ' . __( 'require', $this->plugin_slug ) . '</label>';
+		$checkhtml .= '<label for="title_check"> ' . __( 'require', 'aptrc' ) . '</label>';
 		echo $checkhtml;
 	} // end 
 
@@ -445,7 +445,7 @@ class post_type_requirements_checklist_settings {
 		$value  = isset( $args[1]['editor_check'] ) ? $args[1]['editor_check'] : '';
 
 		$checkhtml = '<input type="checkbox" id="editor_check" name="' . $output . '" value="1"' . checked( 1, $value, false ) . ' />';
-		$checkhtml .= '<label for="editor_check"> ' . __( 'require', $this->plugin_slug ) . '</label>';
+		$checkhtml .= '<label for="editor_check"> ' . __( 'require', 'aptrc' ) . '</label>';
 		echo $checkhtml;
 	} // end 
 
@@ -455,7 +455,7 @@ class post_type_requirements_checklist_settings {
 		$value  = isset( $args[1]['thumbnail_check'] ) ? $args[1]['thumbnail_check'] : '';
 
 		$checkhtml = '<input type="checkbox" id="thumbnail_check" name="' . $output . '" value="1"' . checked( 1, $value, false ) . ' />';
-		$checkhtml .= '<label for="thumbnail_check"> ' . __( 'require', $this->plugin_slug ) . '</label>';
+		$checkhtml .= '<label for="thumbnail_check"> ' . __( 'require', 'aptrc' ) . '</label>';
 		echo $checkhtml;
 	} // end 
 
@@ -465,12 +465,12 @@ class post_type_requirements_checklist_settings {
 		$value  = isset( $args[1]['excerpt_check'] ) ? $args[1]['excerpt_check'] : '';
 
 		$checkhtml = '<input type="checkbox" id="excerpt_check" name="' . $output . '" value="1"' . checked( 1, $value, false ) . ' />';
-		$checkhtml .= '<label for="excerpt_check"> ' . __( 'require', $this->plugin_slug ) . '</label>';
+		$checkhtml .= '<label for="excerpt_check"> ' . __( 'require', 'aptrc' ) . '</label>';
 		echo $checkhtml;
 	} // end 
 
 	public function CatTagTip( $args ) {
-		$html = '<div id="toggle"><p>' . __( 'As a general rule, a post should have a maximum of 3 categories and no more than 30 combined Categories, Tags and Custom Taxonomies - both for SEO value and to keep post creation/load time to a minimum.  Requirements Checklist allows for more only to accommodate large sites with previously added taxonomies.', $this->plugin_slug ) . '</p></div>';
+		$html = '<div id="toggle"><p>' . __( 'As a general rule, a post should have a maximum of 3 categories and no more than 30 combined Categories, Tags and Custom Taxonomies - both for SEO value and to keep post creation/load time to a minimum.  Requirements Checklist allows for more only to accommodate large sites with previously added taxonomies.', 'aptrc' ) . '</p></div>';
 	    echo $html;
 	}
 
@@ -480,7 +480,7 @@ class post_type_requirements_checklist_settings {
 		$value  = isset( $args[1]['categories_check'] ) ? $args[1]['categories_check'] : '';
 
 		$checkhtml = '<input type="checkbox" id="categories_check" name="' . $output . '" value="1"' . checked( 1, $value, false ) . ' />';
-		$checkhtml .= '<label for="categories_check"> ' . __( 'require', $this->plugin_slug ) . '</label>';
+		$checkhtml .= '<label for="categories_check"> ' . __( 'require', 'aptrc' ) . '</label>';
 		echo $checkhtml;
 	}
 
@@ -493,7 +493,7 @@ class post_type_requirements_checklist_settings {
 	        $html .= '<option value="2"' . selected( 2, $value, false) . '>2</option>';
 	        $html .= '<option value="3"' . selected( 3, $value, false) . '>3</option>';
 	    	$html .= '</select>';
-	    	$html .= '<label class="dropdown" for="categories_dropdown"> ' . __( 'minimum required to publish', $this->plugin_slug ) . '</label>';	     
+	    	$html .= '<label class="dropdown" for="categories_dropdown"> ' . __( 'minimum required to publish', 'aptrc' ) . '</label>';	     
 	    	echo $html;
 		} 
 
@@ -507,7 +507,7 @@ class post_type_requirements_checklist_settings {
 	        $html .= '<option value="3"' . selected( 3, $value, false) . '>3</option>';
 	        $html .= '<option value="1000"' . selected( 1000, $value, false) . '>&#8734;</option>';
 	    	$html .= '</select>';
-	    	$html .= '<label class="dropdown max" for="categories_max_dropdown"> ' . __( 'maximum allowed', $this->plugin_slug ) . '</label>';	
+	    	$html .= '<label class="dropdown max" for="categories_max_dropdown"> ' . __( 'maximum allowed', 'aptrc' ) . '</label>';	
 	    	echo $html;
 		} // end
 
@@ -517,7 +517,7 @@ class post_type_requirements_checklist_settings {
 		$value  = isset( $args[1]['tags_check'] ) ? $args[1]['tags_check'] : '';
 
 		$checkhtml = '<input type="checkbox" id="tags_check" name="' . $output . '" value="1"' . checked( 1, $value, false ) . ' />';
-		$checkhtml .= '<label for="tags_check"> ' . __( 'require', $this->plugin_slug ) . '</label>';
+		$checkhtml .= '<label for="tags_check"> ' . __( 'require', 'aptrc' ) . '</label>';
 		echo $checkhtml;
 	} // end tags_check_callback
 
@@ -532,7 +532,7 @@ class post_type_requirements_checklist_settings {
 	        $html .= '<option value="4"' . selected( 4, $value, false) . '>4</option>';
 	        $html .= '<option value="5"' . selected( 5, $value, false) . '>5</option>';
 	    	$html .= '</select>';
-	    	$html .= '<label class="dropdown" for="tags_dropdown"> ' . __( 'minimum required to publish', $this->plugin_slug ) . '</label>';	     
+	    	$html .= '<label class="dropdown" for="tags_dropdown"> ' . __( 'minimum required to publish', 'aptrc' ) . '</label>';	     
 	    	echo $html;
 		} //
 
@@ -552,7 +552,7 @@ class post_type_requirements_checklist_settings {
 	        $html .= '<option value="25"' . selected( 25, $value, false) . '>25</option>';
 	        $html .= '<option value="1000"' . selected( 1000, $value, false) . '>&#8734;</option>';
 	    	$html .= '</select>';
-	    	$html .= '<label class="dropdown max" for="tags_max_dropdown"> ' . __( 'maximum allowed', $this->plugin_slug ) . '</label>';	       
+	    	$html .= '<label class="dropdown max" for="tags_max_dropdown"> ' . __( 'maximum allowed', 'aptrc' ) . '</label>';	       
 	    	echo $html;
 		} // end 
 
@@ -563,7 +563,7 @@ class post_type_requirements_checklist_settings {
 		$value  = isset( $args[1]['hierarchical_check_1'] ) ? $args[1]['hierarchical_check_1'] : '';
 
 		$checkhtml = '<input type="checkbox" id="hierarchical_check_1" name="' . $output . '" value="1"' . checked( 1, $value, false ) . ' />';
-		$checkhtml .= '<label for="hierarchical_check_1"> ' . __( 'require', $this->plugin_slug ) . '</label>';
+		$checkhtml .= '<label for="hierarchical_check_1"> ' . __( 'require', 'aptrc' ) . '</label>';
 		echo $checkhtml;
 	}
 
@@ -576,7 +576,7 @@ class post_type_requirements_checklist_settings {
 	        $html .= '<option value="2"' . selected( 2, $value, false) . '>2</option>';
 	        $html .= '<option value="3"' . selected( 3, $value, false) . '>3</option>';
 	    	$html .= '</select>';
-	    	$html .= '<label class="dropdown" for="hierarchical_dropdown_1"> ' . __( 'minimum required to publish', $this->plugin_slug ) . '</label>';		     
+	    	$html .= '<label class="dropdown" for="hierarchical_dropdown_1"> ' . __( 'minimum required to publish', 'aptrc' ) . '</label>';		     
 	    	echo $html;
 		} 
 
@@ -590,7 +590,7 @@ class post_type_requirements_checklist_settings {
 	        $html .= '<option value="3"' . selected( 3, $value, false) . '>3</option>';
 	        $html .= '<option value="1000"' . selected( 1000, $value, false) . '>&#8734;</option>';
 	    	$html .= '</select>';
-	    	$html .= '<label class="dropdown max" for="hierarchical_max_dropdown_1"> ' . __( 'maximum allowed', $this->plugin_slug ) . '</label>';  
+	    	$html .= '<label class="dropdown max" for="hierarchical_max_dropdown_1"> ' . __( 'maximum allowed', 'aptrc' ) . '</label>';  
 	    	echo $html;
 		} // end
 
@@ -599,7 +599,7 @@ class post_type_requirements_checklist_settings {
 		$value  = isset( $args[1]['flat_check_1'] ) ? $args[1]['flat_check_1'] : '';
 
 		$checkhtml = '<input type="checkbox" id="flat_check_1" name="' . $output . '" value="1"' . checked( 1, $value, false ) . ' />';
-		$checkhtml .= '<label for="flat_check_1"> ' . __( 'require', $this->plugin_slug ) . '</label>';
+		$checkhtml .= '<label for="flat_check_1"> ' . __( 'require', 'aptrc' ) . '</label>';
 		echo $checkhtml;
 	} 
 
@@ -614,7 +614,7 @@ class post_type_requirements_checklist_settings {
 	        $html .= '<option value="4"' . selected( 4, $value, false) . '>4</option>';
         	$html .= '<option value="5"' . selected( 5, $value, false) . '>5</option>';
 	    	$html .= '</select>';
-	    	$html .= '<label class="dropdown" for="flat_dropdown_1"> ' . __( 'minimum required to publish', $this->plugin_slug ) . '</label>';	     
+	    	$html .= '<label class="dropdown" for="flat_dropdown_1"> ' . __( 'minimum required to publish', 'aptrc' ) . '</label>';	     
 	    	echo $html;
 		} // 
 
@@ -634,7 +634,7 @@ class post_type_requirements_checklist_settings {
 	        $html .= '<option value="25"' . selected( 25, $value, false) . '>25</option>';
 	        $html .= '<option value="1000"' . selected( 1000, $value, false) . '>&#8734;</option>';
 	    	$html .= '</select>';
-	    	$html .= '<label class="dropdown max" for="flat_max_dropdown_1"> ' . __( 'maximum allowed', $this->plugin_slug ) . '</label>';	    
+	    	$html .= '<label class="dropdown max" for="flat_max_dropdown_1"> ' . __( 'maximum allowed', 'aptrc' ) . '</label>';	    
 	    	echo $html;
 		} // end 
 
@@ -644,7 +644,7 @@ class post_type_requirements_checklist_settings {
 		$value  = isset( $args[1]['hierarchical_check_2'] ) ? $args[1]['hierarchical_check_2'] : '';
 
 		$checkhtml = '<input type="checkbox" id="hierarchical_check_2" name="' . $output . '" value="1"' . checked( 1, $value, false ) . ' />';
-		$checkhtml .= '<label for="hierarchical_check_2"> ' . __( 'require', $this->plugin_slug ) . '</label>';
+		$checkhtml .= '<label for="hierarchical_check_2"> ' . __( 'require', 'aptrc' ) . '</label>';
 		echo $checkhtml;
 	} 
 
@@ -657,7 +657,7 @@ class post_type_requirements_checklist_settings {
 	        $html .= '<option value="2"' . selected( 2, $value, false) . '>2</option>';
 	        $html .= '<option value="3"' . selected( 3, $value, false) . '>3</option>';
 	    	$html .= '</select>';
-	    	$html .= '<label class="dropdown" for="hierarchical_dropdown_2"> ' . __( 'minimum required to publish', $this->plugin_slug ) . '</label>';	     
+	    	$html .= '<label class="dropdown" for="hierarchical_dropdown_2"> ' . __( 'minimum required to publish', 'aptrc' ) . '</label>';	     
 	    	echo $html;
 		} 
 
@@ -671,7 +671,7 @@ class post_type_requirements_checklist_settings {
 	        $html .= '<option value="3"' . selected( 3, $value, false) . '>3</option>';
 	        $html .= '<option value="1000"' . selected( 1000, $value, false) . '>&#8734;</option>';
 	    	$html .= '</select>';
-	    	$html .= '<label class="dropdown max" for="hierarchical_max_dropdown_2"> ' . __( 'maximum allowed', $this->plugin_slug ) . '</label>';	
+	    	$html .= '<label class="dropdown max" for="hierarchical_max_dropdown_2"> ' . __( 'maximum allowed', 'aptrc' ) . '</label>';	
 	    	echo $html;
 		} // end
 
@@ -680,7 +680,7 @@ class post_type_requirements_checklist_settings {
 		$value  = isset( $args[1]['flat_check_2'] ) ? $args[1]['flat_check_2'] : '';
 
 		$checkhtml = '<input type="checkbox" id="flat_check_2" name="' . $output . '" value="1"' . checked( 1, $value, false ) . ' />';
-		$checkhtml .= '<label for="flat_check_2"> ' . __( 'require', $this->plugin_slug ) . '</label>';
+		$checkhtml .= '<label for="flat_check_2"> ' . __( 'require', 'aptrc' ) . '</label>';
 		echo $checkhtml;
 	} 
 
@@ -695,7 +695,7 @@ class post_type_requirements_checklist_settings {
 	        $html .= '<option value="4"' . selected( 4, $value, false) . '>4</option>';
         	$html .= '<option value="5"' . selected( 5, $value, false) . '>5</option>';
 	    	$html .= '</select>';
-	    	$html .= '<label class="dropdown" for="flat_dropdown_2"> ' . __( 'minimum required to publish', $this->plugin_slug ) . '</label>';	     
+	    	$html .= '<label class="dropdown" for="flat_dropdown_2"> ' . __( 'minimum required to publish', 'aptrc' ) . '</label>';	     
 	    	echo $html;
 		} //
 
@@ -715,7 +715,7 @@ class post_type_requirements_checklist_settings {
 	        $html .= '<option value="25"' . selected( 25, $value, false) . '>25</option>';
 	        $html .= '<option value="1000"' . selected( 1000, $value, false) . '>&#8734;</option>';
 	    	$html .= '</select>';
-	    	$html .= '<label class="dropdown max" for="flat_max_dropdown_2"> ' . __( 'maximum allowed', $this->plugin_slug ) . '</label>';     
+	    	$html .= '<label class="dropdown max" for="flat_max_dropdown_2"> ' . __( 'maximum allowed', 'aptrc' ) . '</label>';     
 	    	echo $html;
 		} // end 
 
@@ -725,7 +725,7 @@ class post_type_requirements_checklist_settings {
 		$value  = isset( $args[1]['hierarchical_check_3'] ) ? $args[1]['hierarchical_check_3'] : '';
 
 		$checkhtml = '<input type="checkbox" id="hierarchical_check_3" name="' . $output . '" value="1"' . checked( 1, $value, false ) . ' />';
-		$checkhtml .= '<label for="hierarchical_check_3"> ' . __( 'require', $this->plugin_slug ) . '</label>';
+		$checkhtml .= '<label for="hierarchical_check_3"> ' . __( 'require', 'aptrc' ) . '</label>';
 		echo $checkhtml;
 	} 
 
@@ -738,7 +738,7 @@ class post_type_requirements_checklist_settings {
 	        $html .= '<option value="2"' . selected( 2, $value, false) . '>2</option>';
 	        $html .= '<option value="3"' . selected( 3, $value, false) . '>3</option>';
 	    	$html .= '</select>';
-	    	$html .= '<label class="dropdown" for="hierarchical_dropdown_3"> ' . __( 'minimum required to publish', $this->plugin_slug ) . '</label>';	     
+	    	$html .= '<label class="dropdown" for="hierarchical_dropdown_3"> ' . __( 'minimum required to publish', 'aptrc' ) . '</label>';	     
 	    	echo $html;
 		} 
 
@@ -752,7 +752,7 @@ class post_type_requirements_checklist_settings {
 	        $html .= '<option value="3"' . selected( 3, $value, false) . '>3</option>';
 	        $html .= '<option value="1000"' . selected( 1000, $value, false) . '>&#8734;</option>';
 	    	$html .= '</select>';
-	    	$html .= '<label class="dropdown max" for="hierarchical_max_dropdown_3"> ' . __( 'maximum allowed', $this->plugin_slug ) . '</label>';	  
+	    	$html .= '<label class="dropdown max" for="hierarchical_max_dropdown_3"> ' . __( 'maximum allowed', 'aptrc' ) . '</label>';	  
 	    	echo $html;
 		} // end
 
@@ -761,7 +761,7 @@ class post_type_requirements_checklist_settings {
 		$value  = isset( $args[1]['flat_check_3'] ) ? $args[1]['flat_check_3'] : '';
 
 		$checkhtml = '<input type="checkbox" id="flat_check_3" name="' . $output . '" value="1"' . checked( 1, $value, false ) . ' />';
-		$checkhtml .= '<label for="flat_check_3"> ' . __( 'require', $this->plugin_slug ) . '</label>';
+		$checkhtml .= '<label for="flat_check_3"> ' . __( 'require', 'aptrc' ) . '</label>';
 		echo $checkhtml;
 	} 
 
@@ -776,7 +776,7 @@ class post_type_requirements_checklist_settings {
 	        $html .= '<option value="4"' . selected( 4, $value, false) . '>4</option>';
         	$html .= '<option value="5"' . selected( 5, $value, false) . '>5</option>';
 	    	$html .= '</select>';
-	    	$html .= '<label class="dropdown" for="flat_dropdown_3"> ' . __( 'minimum required to publish', $this->plugin_slug ) . '</label>';	     
+	    	$html .= '<label class="dropdown" for="flat_dropdown_3"> ' . __( 'minimum required to publish', 'aptrc' ) . '</label>';	     
 	    	echo $html;
 		} // 
 
@@ -796,7 +796,7 @@ class post_type_requirements_checklist_settings {
 	        $html .= '<option value="25"' . selected( 25, $value, false) . '>25</option>';
 	        $html .= '<option value="1000"' . selected( 1000, $value, false) . '>&#8734;</option>';
 	    	$html .= '</select>';
-	    	$html .= '<label class="dropdown max" for="flat_max_dropdown_3"> ' . __( 'maximum allowed', $this->plugin_slug ) . '</label>';	   
+	    	$html .= '<label class="dropdown max" for="flat_max_dropdown_3"> ' . __( 'maximum allowed', 'aptrc' ) . '</label>';	   
 	    	echo $html;
 		} // end 
 
@@ -806,7 +806,7 @@ class post_type_requirements_checklist_settings {
 		$value  = isset( $args[1]['hierarchical_check_4'] ) ? $args[1]['hierarchical_check_4'] : '';
 
 		$checkhtml = '<input type="checkbox" id="hierarchical_check_4" name="' . $output . '" value="1"' . checked( 1, $value, false ) . ' />';
-		$checkhtml .= '<label for="hierarchical_check_4"> ' . __( 'require', $this->plugin_slug ) . '</label>';
+		$checkhtml .= '<label for="hierarchical_check_4"> ' . __( 'require', 'aptrc' ) . '</label>';
 		echo $checkhtml;
 	} 
 
@@ -819,7 +819,7 @@ class post_type_requirements_checklist_settings {
 	        $html .= '<option value="2"' . selected( 2, $value, false) . '>2</option>';
 	        $html .= '<option value="3"' . selected( 3, $value, false) . '>3</option>';
 	    	$html .= '</select>';
-	    	$html .= '<label class="dropdown" for="hierarchical_dropdown_4"> ' . __( 'minimum required to publish', $this->plugin_slug ) . '</label>';	     
+	    	$html .= '<label class="dropdown" for="hierarchical_dropdown_4"> ' . __( 'minimum required to publish', 'aptrc' ) . '</label>';	     
 	    	echo $html;
 		} 
 
@@ -833,7 +833,7 @@ class post_type_requirements_checklist_settings {
 	        $html .= '<option value="3"' . selected( 3, $value, false) . '>3</option>';
 	        $html .= '<option value="1000"' . selected( 1000, $value, false) . '>&#8734;</option>';
 	    	$html .= '</select>';
-	    	$html .= '<label class="dropdown max" for="hierarchical_max_dropdown_4"> ' . __( 'maximum allowed', $this->plugin_slug ) . '</label>';   
+	    	$html .= '<label class="dropdown max" for="hierarchical_max_dropdown_4"> ' . __( 'maximum allowed', 'aptrc' ) . '</label>';   
 	    	echo $html;
 		} // end
 
@@ -842,7 +842,7 @@ class post_type_requirements_checklist_settings {
 		$value  = isset( $args[1]['flat_check_4'] ) ? $args[1]['flat_check_4'] : '';
 
 		$checkhtml = '<input type="checkbox" id="flat_check_4" name="' . $output . '" value="1"' . checked( 1, $value, false ) . ' />';
-		$checkhtml .= '<label for="flat_check_4"> ' . __( 'require', $this->plugin_slug ) . '</label>';
+		$checkhtml .= '<label for="flat_check_4"> ' . __( 'require', 'aptrc' ) . '</label>';
 		echo $checkhtml;
 	} 
 
@@ -857,7 +857,7 @@ class post_type_requirements_checklist_settings {
 	        $html .= '<option value="4"' . selected( 4, $value, false) . '>4</option>';
         	$html .= '<option value="5"' . selected( 5, $value, false) . '>5</option>';
 	    	$html .= '</select>';
-	    	$html .= '<label class="dropdown" for="flat_dropdown_4"> ' . __( 'minimum required to publish', $this->plugin_slug ) . '</label>';	     
+	    	$html .= '<label class="dropdown" for="flat_dropdown_4"> ' . __( 'minimum required to publish', 'aptrc' ) . '</label>';	     
 	    	echo $html;
 		} // 
 
@@ -877,7 +877,7 @@ class post_type_requirements_checklist_settings {
 	        $html .= '<option value="25"' . selected( 25, $value, false) . '>25</option>';
 	        $html .= '<option value="1000"' . selected( 1000, $value, false) . '>&#8734;</option>';
 	    	$html .= '</select>';
-	    	$html .= '<label class="dropdown max" for="flat_max_dropdown_4"> ' . __( 'maximum allowed', $this->plugin_slug ) . '</label>';	    
+	    	$html .= '<label class="dropdown max" for="flat_max_dropdown_4"> ' . __( 'maximum allowed', 'aptrc' ) . '</label>';	    
 	    	echo $html;
 		} // end 
 
@@ -887,7 +887,7 @@ class post_type_requirements_checklist_settings {
 		$value  = isset( $args[1]['hierarchical_check_5'] ) ? $args[1]['hierarchical_check_5'] : '';
 
 		$checkhtml = '<input type="checkbox" id="hierarchical_check_5" name="' . $output . '" value="1"' . checked( 1, $value, false ) . ' />';
-		$checkhtml .= '<label for="hierarchical_check_5"> ' . __( 'require', $this->plugin_slug ) . '</label>';
+		$checkhtml .= '<label for="hierarchical_check_5"> ' . __( 'require', 'aptrc' ) . '</label>';
 		echo $checkhtml;
 	} 
 
@@ -900,7 +900,7 @@ class post_type_requirements_checklist_settings {
 	        $html .= '<option value="2"' . selected( 2, $value, false) . '>2</option>';
 	        $html .= '<option value="3"' . selected( 3, $value, false) . '>3</option>';
 	    	$html .= '</select>';
-	    	$html .= '<label class="dropdown" for="hierarchical_dropdown_5"> ' . __( 'minimum required to publish', $this->plugin_slug ) . '</label>';	     
+	    	$html .= '<label class="dropdown" for="hierarchical_dropdown_5"> ' . __( 'minimum required to publish', 'aptrc' ) . '</label>';	     
 	    	echo $html;
 		} 
 
@@ -914,7 +914,7 @@ class post_type_requirements_checklist_settings {
 	        $html .= '<option value="3"' . selected( 3, $value, false) . '>3</option>';
 	        $html .= '<option value="1000"' . selected( 1000, $value, false) . '>&#8734;</option>';
 	    	$html .= '</select>';
-	    	$html .= '<label class="dropdown max" for="hierarchical_max_dropdown_5"> ' . __( 'maximum allowed', $this->plugin_slug ) . '</label>';	  
+	    	$html .= '<label class="dropdown max" for="hierarchical_max_dropdown_5"> ' . __( 'maximum allowed', 'aptrc' ) . '</label>';	  
 	    	echo $html;
 		} // end
 
@@ -923,7 +923,7 @@ class post_type_requirements_checklist_settings {
 		$value  = isset( $args[1]['flat_check_5'] ) ? $args[1]['flat_check_5'] : '';
 
 		$checkhtml = '<input type="checkbox" id="flat_check_5" name="' . $output . '" value="1"' . checked( 1, $value, false ) . ' />';
-		$checkhtml .= '<label for="flat_check_5"> ' . __( 'require', $this->plugin_slug ) . '</label>';
+		$checkhtml .= '<label for="flat_check_5"> ' . __( 'require', 'aptrc' ) . '</label>';
 		echo $checkhtml;
 	} 
 
@@ -938,7 +938,7 @@ class post_type_requirements_checklist_settings {
 	        $html .= '<option value="4"' . selected( 4, $value, false) . '>4</option>';
         	$html .= '<option value="5"' . selected( 5, $value, false) . '>5</option>';
 	    	$html .= '</select>';
-	    	$html .= '<label class="dropdown" for="flat_dropdown_5"> ' . __( 'minimum required to publish', $this->plugin_slug ) . '</label>';	     
+	    	$html .= '<label class="dropdown" for="flat_dropdown_5"> ' . __( 'minimum required to publish', 'aptrc' ) . '</label>';	     
 	    	echo $html;
 		} // 
 
@@ -958,13 +958,13 @@ class post_type_requirements_checklist_settings {
 	        $html .= '<option value="25"' . selected( 25, $value, false) . '>25</option>';
 	        $html .= '<option value="1000"' . selected( 1000, $value, false) . '>&#8734;</option>';
 	    	$html .= '</select>';
-	    	$html .= '<label class="dropdown max" for="flat_max_dropdown_5"> ' . __( 'maximum allowed', $this->plugin_slug ) . '</label>';		     
+	    	$html .= '<label class="dropdown max" for="flat_max_dropdown_5"> ' . __( 'maximum allowed', 'aptrc' ) . '</label>';		     
 	    	echo $html;
 		} // end 
 
 	public function FieldsTip( $args ) {
 		$html = '<div id="toggle"><p>' . __( 'Due to the way 3rd party plugins handle per post requirements and conditional logic for custom fields, requirements should be set from those plugins\' settings pages.  For custom fields that don\'t use logic controlled by a 3rd party plugin, or for hard-coded custom fields, requirements can be set by entering the field slug in the space provided.
-			', $this->plugin_slug ) . '</p></div>';
+			', 'aptrc' ) . '</p></div>';
 	    echo $html;
 	}
 
@@ -974,7 +974,7 @@ class post_type_requirements_checklist_settings {
 		$value  = isset( $args[1]['yoastseo_focus_keyword'] ) ? $args[1]['yoastseo_focus_keyword'] : '';
 
 		$checkhtml = '<input type="checkbox" id="yoastseo_focus_keyword" name="' . $output . '" value="1"' . checked( 1, $value, false ) . ' />';
-		$checkhtml .= '<label for="yoastseo_focus_keyword"> ' . __( 'require Focus Keyword', $this->plugin_slug ) . '</label>';
+		$checkhtml .= '<label for="yoastseo_focus_keyword"> ' . __( 'require Focus Keyword', 'aptrc' ) . '</label>';
 		echo $checkhtml;
 	} // end 
 
@@ -983,7 +983,7 @@ class post_type_requirements_checklist_settings {
 		$value  = isset( $args[1]['yoastseo_meta_description'] ) ? $args[1]['yoastseo_meta_description'] : '';
 
 		$checkhtml = '<input type="checkbox" id="yoastseo_meta_description" class="check" name="' . $output . '" value="1"' . checked( 1, $value, false ) . ' />';
-		$checkhtml .= '<label class="check" for="yoastseo_meta_description"> ' . __( 'require Meta Description', $this->plugin_slug ) . '</label>';
+		$checkhtml .= '<label class="check" for="yoastseo_meta_description"> ' . __( 'require Meta Description', 'aptrc' ) . '</label>';
 		echo $checkhtml;
 	} // end 
 

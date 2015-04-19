@@ -4,7 +4,7 @@ Author URI: http://dauid.us
 Tags: requirements, require, required, requirement, publish, post type, metabox, wysiwyg, featured image, author, excerpt
 Requires at least: 3.1
 Tested up to: 4.1.1
-Stable tag: 2.3.1
+Stable tag: 2.3.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -73,7 +73,10 @@ Of course!  Just save as a draft as normal.
 
 == Changelog ==
 
-= 2.3 =
+= 2.3.2 =
+* localization support actually working now
+
+= 2.3.1 =
 * localization support
 
 = 2.3 =
@@ -111,7 +114,10 @@ Of course!  Just save as a draft as normal.
 
 == Upgrade Notice ==
 
-= 2.3 =
+= 2.3.2 =
+Can now be translated in your language... for realzees!
+
+= 2.3.1 =
 Can now be translated in your language!
 
 = 2.3 =

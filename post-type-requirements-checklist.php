@@ -14,10 +14,11 @@
  * Plugin Name:       Requirements Checklist
  * Plugin URI:        http://dauid.us
  * Description:       Allows admins to set required content to be entered before a page/post or custom post type can be published.
- * Version:           2.3.1
+ * Version:           2.3.2
  * Author:            Dave Winter
  * Author URI:        http://dauid.us
- * Text Domain: 	  post-type-requirements-checklist
+ * Text Domain: 	  aptrc
+ * Domain Path:		  /languages
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * GitHub Plugin URI: https://github.com/dauidus/post-type-requirements-checklist
@@ -44,6 +45,13 @@ register_deactivation_hook( __FILE__, array( 'Post_Type_Requirements_Checklist',
 
 add_action( 'plugins_loaded', array( 'Post_Type_Requirements_Checklist', 'get_instance' ) );
 
+/**
+ * Load translations
+ */
+function aptrc_load_textdomain() {
+	load_plugin_textdomain( 'aptrc', false, dirname(plugin_basename(__FILE__)) . '/languages/' );
+}
+add_action( 'init', 'aptrc_load_textdomain', 1 );
 
 
 

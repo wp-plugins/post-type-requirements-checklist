@@ -20,7 +20,7 @@ class post_type_requirements_checklist {
 	 *
 	 * @var     string
 	 */
-	const VERSION = '2.3';
+	const VERSION = '2.3.2';
 
 	/**
 	 * Unique identifier for your plugin.
@@ -52,9 +52,6 @@ class post_type_requirements_checklist {
 	 * @since     1.0
 	 */
 	private function __construct() {
-
-		// Load plugin text domain
-		add_action( 'init', array( $this, 'load_plugin_textdomain' ) );
 
 		// Display the admin notification
 		add_action( 'admin_notices', array( $this, 'admin_notice_activation' ) );
@@ -301,20 +298,6 @@ class post_type_requirements_checklist {
 			delete_option( 'aptrc-display-uninstallation-message' );
 
 		}
-	}
-
-	/**
-	 * Load the plugin text domain for translation.
-	 *
-	 * @since    1.0
-	 */
-	public function load_plugin_textdomain() {
-
-		$domain = 'post-type-requirements-checklist';
-		$locale = apply_filters( 'plugin_locale', get_locale(), $domain );
-
-		load_textdomain( $domain, trailingslashit( WP_PLUGIN_DIR ) . 'languages/post-type-requirements-checklist' . $locale . '.mo' );
-
 	}
 
 }

@@ -116,8 +116,8 @@ class Post_Type_Requirements_Checklist_Admin {
 		 *
 		 */
 		$this->plugin_screen_hook_suffix = add_options_page(
-			__( 'Requirements Checklist', $this->plugin_slug ),
-			__( 'Requirements Checklist', $this->plugin_slug ),
+			__( 'Requirements Checklist', 'aptrc' ),
+			__( 'Requirements Checklist', 'aptrc' ),
 			'manage_options',
 			$this->plugin_slug,
 			array( $this, 'display_plugin_admin_page' )
@@ -143,7 +143,7 @@ class Post_Type_Requirements_Checklist_Admin {
 
 		return array_merge(
 			array(
-				'settings' => '<a href="' . admin_url( 'options-general.php?page=' . $this->plugin_slug ) . '">' . __( 'Settings' ) . '</a>'
+				'settings' => '<a href="' . admin_url( 'options-general.php?page=' . 'aptrc' ) . '">' . __( 'Settings' ) . '</a>'
 			),
 			$links
 		);
@@ -200,7 +200,7 @@ class Post_Type_Requirements_Checklist_Admin {
 
 		// checkbox title
 		
-		echo '<div id="requirements_list"><span id="rltop">' . __( 'Requirements Checklist:', $this->plugin_slug ) . '</span>';
+		echo '<div id="requirements_list"><span id="rltop">' . __( 'Requirements Checklist', 'aptrc' ) . ':</span>';
 
 
 		/**
@@ -211,7 +211,7 @@ class Post_Type_Requirements_Checklist_Admin {
 		if ( isset( $options['title_check'] ) && ! empty( $options['title_check'] ) ) {	
 
 			echo '<span class="reqcb">';
-			echo '<input name="title_checkbox" type="checkbox" onclick="return false;" onkeydown="return false;" /><label for="title_checkbox"><span></span> ' . __( 'Title', $this->plugin_slug ) . '</label><br/>';
+			echo '<input name="title_checkbox" type="checkbox" onclick="return false;" onkeydown="return false;" /><label for="title_checkbox"><span></span> ' . __( 'Title', 'aptrc' ) . '</label><br/>';
 			echo '</span>'; 
 			?>
 
@@ -253,7 +253,7 @@ class Post_Type_Requirements_Checklist_Admin {
 // rethink how this updates - every 10 seconds now
 		if ( isset( $options['editor_check'] ) && ! empty( $options['editor_check'] ) ) {				
 			echo '<span class="reqcb">';
-			echo '<input name="editor_checkbox" type="checkbox" onclick="return false;" onkeydown="return false;" /><label for="editor_checkbox"><span></span> ' . __( 'WYSIWYG Editor', $this->plugin_slug ) . '</label><br/>';
+			echo '<input name="editor_checkbox" type="checkbox" onclick="return false;" onkeydown="return false;" /><label for="editor_checkbox"><span></span> ' . __( 'WYSIWYG Editor', 'aptrc' ) . '</label><br/>';
 			echo '</span>';
 			?>
 
@@ -291,7 +291,7 @@ class Post_Type_Requirements_Checklist_Admin {
 		 */
 		if ( isset( $options['thumbnail_check'] ) && ! empty( $options['thumbnail_check'] ) ) {				
 			echo '<span class="reqcb">';
-			echo '<input name="thumbnail_checkbox" type="checkbox" onclick="return false;" onkeydown="return false;" /><label for="thumbnail_checkbox"><span></span> ' . __( 'Featured Image', $this->plugin_slug ) . '</label><br/>';
+			echo '<input name="thumbnail_checkbox" type="checkbox" onclick="return false;" onkeydown="return false;" /><label for="thumbnail_checkbox"><span></span> ' . __( 'Featured Image', 'aptrc' ) . '</label><br/>';
 			echo '</span>';
 			?>
 
@@ -333,7 +333,7 @@ class Post_Type_Requirements_Checklist_Admin {
 		 */
 		if ( isset( $options['excerpt_check'] ) && ! empty( $options['excerpt_check'] ) ) {				
 			echo '<span class="reqcb">';
-			echo '<input name="excerpt_checkbox" type="checkbox" onclick="return false;" onkeydown="return false;" /><label for="excerpt_checkbox"><span></span> ' . __( 'Excerpt', $this->plugin_slug ) . '</label><br/>';
+			echo '<input name="excerpt_checkbox" type="checkbox" onclick="return false;" onkeydown="return false;" /><label for="excerpt_checkbox"><span></span> ' . __( 'Excerpt', 'aptrc' ) . '</label><br/>';
 			echo '</span>';
 			?>
 
@@ -399,7 +399,7 @@ class Post_Type_Requirements_Checklist_Admin {
 							echo '<em>'.$cat_num_html.'</em>';
 						}
 						else if ( $cat_num_max == '1000' ) {
-							$cat_num_html = ' &nbsp ' . __( '', $this->plugin_slug) . '' .$cat_num . ' or more';
+							$cat_num_html = ' &nbsp ' . $cat_num . ' or more';
 							echo '<em>'.$cat_num_html.'</em>';
 						}
 						else {
@@ -456,7 +456,7 @@ class Post_Type_Requirements_Checklist_Admin {
 							echo '<em>'.$tag_num_html.'</em>';
 						}
 						else if ( $tag_num_max == '1000' ) {
-							$tag_num_html = ' &nbsp ' . __( '', $this->plugin_slug) . '' .$tag_num . ' or more';
+							$tag_num_html = ' &nbsp ' . $tag_num . ' or more';
 							echo '<em>'.$tag_num_html.'</em>';
 						}
 						else {
@@ -545,7 +545,7 @@ class Post_Type_Requirements_Checklist_Admin {
 								echo '<em>'.$cat_num_html.'</em>';
 							}
 							else if ( $cat_num_max == '1000' ) {
-								$cat_num_html = ' &nbsp ' . __( '', $this->plugin_slug) . '' .$cat_num . ' or more';
+								$cat_num_html = ' &nbsp ' . $cat_num . ' or more';
 								echo '<em>'.$cat_num_html.'</em>';
 							}
 							else {
@@ -602,7 +602,7 @@ class Post_Type_Requirements_Checklist_Admin {
 								echo '<em>'.$tag_num_html.'</em>';
 							}
 							else if ( $tag_num_max == '1000' ) {
-								$tag_num_html = ' &nbsp ' . __( '', $this->plugin_slug) . '' .$tag_num . ' or more';
+								$tag_num_html = ' &nbsp ' . $tag_num . ' or more';
 								echo '<em>'.$tag_num_html.'</em>';
 							}
 							else {
@@ -666,7 +666,7 @@ class Post_Type_Requirements_Checklist_Admin {
 
 				echo '<div id="custom-taxonomies">';	
 				echo '<span class="reqcb">';
-				echo '<input name="seo_checkbox" type="checkbox" onclick="return false;" onkeydown="return false;" /><label for="seo_checkbox"><span></span> ' . __( 'SEO by Yoast', $this->plugin_slug );
+				echo '<input name="seo_checkbox" type="checkbox" onclick="return false;" onkeydown="return false;" /><label for="seo_checkbox"><span></span> ' . __( 'SEO by Yoast', 'aptrc' );
 
 				if ( isset( $options['yoastseo_focus_keyword'] ) && ! empty( $options['yoastseo_focus_keyword'] )) {
 					$keyword = 'y';
@@ -733,7 +733,7 @@ class Post_Type_Requirements_Checklist_Admin {
 		}
 
 
-		echo '<span id="rlbot">' . __( 'Drafts may be saved above', $this->plugin_slug ) . '</span>';
+		echo '<span id="rlbot">' . __( 'Drafts may be saved above', 'aptrc' ) . '</span>';
 
 
 		/**
