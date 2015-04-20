@@ -1,0 +1,222 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Requirements Checklist v2.3.1\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/post-type-requirements-checklist\n"
+"POT-Creation-Date: 2015-04-17 20:57:24+00:00\n"
+"PO-Revision-Date: 2015-04-20 09:56+0100\n"
+"Last-Translator: Li-An <lian00@gmail.com>\n"
+"Language-Team: Li-An <lian00@gmail.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n>1;\n"
+"X-Generator: Poedit 1.7.5\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
+"X-Textdomain-Support: yes\n"
+"Language: fr\n"
+"X-Poedit-SearchPath-0: .\n"
+
+# @ post-type-requirements-checklist
+#. translators: plugin header field 'Name'
+#: admin/class-post-type-requirements-checklist-admin.php:119
+#: admin/class-post-type-requirements-checklist-admin.php:120
+#: post-type-requirements-checklist.php:0
+msgid "Requirements Checklist"
+msgstr "Requirements Checklist"
+
+# @ default
+#: admin/class-post-type-requirements-checklist-admin.php:146
+msgid "Settings"
+msgstr "Réglages"
+
+# @ post-type-requirements-checklist
+#: admin/class-post-type-requirements-checklist-admin.php:203
+msgid "Requirements Checklist:"
+msgstr "Liste des éléments requis:"
+
+# @ post-type-requirements-checklist
+#: admin/class-post-type-requirements-checklist-admin.php:214
+#: admin/includes/settings.php:111
+msgid "Title"
+msgstr "Titre"
+
+# @ post-type-requirements-checklist
+#: admin/class-post-type-requirements-checklist-admin.php:256
+#: admin/includes/settings.php:123
+msgid "WYSIWYG Editor"
+msgstr "Éditeur de texte (WYSIWYG)"
+
+# @ post-type-requirements-checklist
+#: admin/class-post-type-requirements-checklist-admin.php:294
+#: admin/includes/settings.php:135
+msgid "Featured Image"
+msgstr "Image à la une"
+
+# @ post-type-requirements-checklist
+#: admin/class-post-type-requirements-checklist-admin.php:336
+#: admin/includes/settings.php:147
+msgid "Excerpt"
+msgstr "Extrait"
+
+# @ post-type-requirements-checklist
+#: admin/class-post-type-requirements-checklist-admin.php:392
+#: admin/includes/settings.php:183
+msgid "Categories"
+msgstr "Catégories"
+
+# @ post-type-requirements-checklist
+#: admin/class-post-type-requirements-checklist-admin.php:398
+#: admin/class-post-type-requirements-checklist-admin.php:455
+#: admin/class-post-type-requirements-checklist-admin.php:544
+#: admin/class-post-type-requirements-checklist-admin.php:601
+msgid "exactly "
+msgstr "exactement"
+
+# @ post-type-requirements-checklist
+#: admin/class-post-type-requirements-checklist-admin.php:449
+#: admin/includes/settings.php:213
+msgid "Tags"
+msgstr "Mots-clés"
+
+# @ post-type-requirements-checklist
+#: admin/class-post-type-requirements-checklist-admin.php:669
+msgid "SEO by Yoast"
+msgstr "SEO de Yoast"
+
+# @ post-type-requirements-checklist
+#: admin/class-post-type-requirements-checklist-admin.php:685
+msgid "Keyword"
+msgstr "Mot clef"
+
+# @ post-type-requirements-checklist
+#: admin/class-post-type-requirements-checklist-admin.php:691
+msgid "Description"
+msgstr "Description"
+
+# @ post-type-requirements-checklist
+#: admin/class-post-type-requirements-checklist-admin.php:736
+msgid "Drafts may be saved above"
+msgstr "Voir ci-dessus pour sauvegarder les brouillons"
+
+# @ post-type-requirements-checklist
+#: admin/includes/settings.php:102
+msgid "Default Content Requirements"
+msgstr "Éléments par défaut requis"
+
+# @ post-type-requirements-checklist
+#: admin/includes/settings.php:163
+msgid "Taxonomy Requirements"
+msgstr "Taxonomies requises"
+
+# @ post-type-requirements-checklist
+#: admin/includes/settings.php:265
+msgid "category"
+msgstr "catégorie"
+
+# @ post-type-requirements-checklist
+#: admin/includes/settings.php:295
+msgid "tag"
+msgstr "mot-clef"
+
+# @ post-type-requirements-checklist
+#: admin/includes/settings.php:394
+msgid "3rd Party Plugin Support"
+msgstr "Support de plugins tiers"
+
+# @ post-type-requirements-checklist
+#: admin/includes/settings.php:405
+msgid "WordPress SEO by Yoast"
+msgstr "Wordpress SEO de Yoast"
+
+# @ post-type-requirements-checklist
+#: admin/includes/settings.php:438 admin/includes/settings.php:448
+#: admin/includes/settings.php:458 admin/includes/settings.php:468
+#: admin/includes/settings.php:483 admin/includes/settings.php:520
+#: admin/includes/settings.php:566 admin/includes/settings.php:602
+#: admin/includes/settings.php:647 admin/includes/settings.php:683
+#: admin/includes/settings.php:728 admin/includes/settings.php:764
+#: admin/includes/settings.php:809 admin/includes/settings.php:845
+#: admin/includes/settings.php:890 admin/includes/settings.php:926
+msgid "require"
+msgstr "requis"
+
+# @ post-type-requirements-checklist
+#: admin/includes/settings.php:473
+msgid "As a general rule, a post should have a maximum of 3 categories and no more than 30 combined Categories, Tags and Custom Taxonomies - both for SEO value and to keep post creation/load time to a minimum.  Requirements Checklist allows for more only to accommodate large sites with previously added taxonomies."
+msgstr "Comme règle générale, un billet ne devrait pas avoir plus de trois catégories et plus de trente catégories+mots-clefs+taxonomies personnalisées - que ce soit pour un meilleur SEO ou pour permettre à la création/ouverture de billet de se faire en un temps acceptable. Requirements Checklist en accepte plus pour s'adapter aux gros sites contenant des taxonomies ajoutées  avant son installation."
+
+# @ post-type-requirements-checklist
+#: admin/includes/settings.php:496 admin/includes/settings.php:535
+#: admin/includes/settings.php:579 admin/includes/settings.php:617
+#: admin/includes/settings.php:660 admin/includes/settings.php:698
+#: admin/includes/settings.php:741 admin/includes/settings.php:779
+#: admin/includes/settings.php:822 admin/includes/settings.php:860
+#: admin/includes/settings.php:903 admin/includes/settings.php:941
+msgid "minimum required to publish"
+msgstr "minimum requis pour publier"
+
+# @ post-type-requirements-checklist
+#: admin/includes/settings.php:510 admin/includes/settings.php:555
+#: admin/includes/settings.php:593 admin/includes/settings.php:637
+#: admin/includes/settings.php:674 admin/includes/settings.php:718
+#: admin/includes/settings.php:755 admin/includes/settings.php:799
+#: admin/includes/settings.php:836 admin/includes/settings.php:880
+#: admin/includes/settings.php:917 admin/includes/settings.php:961
+msgid "maximum allowed"
+msgstr "maximum autorisé"
+
+# @ post-type-requirements-checklist
+#: admin/includes/settings.php:966
+msgid ""
+"Due to the way 3rd party plugins handle per post requirements and conditional logic for custom fields, requirements should be set from those plugins' settings pages.  For custom fields that don't use logic controlled by a 3rd party plugin, or for hard-coded custom fields, requirements can be set by entering the field slug in the space provided.\n"
+"\t\t\t"
+msgstr ""
+"Du fait de la manière dont les plugins tiers gèrent les éléments requis par billet et la logique conditionnelle des champs personnalisés, les objets requis doivent être définis à partir des pages de réglages de ces plugins. Pour les champs personnalisés qui n'utilisent pas une logique conditionnelle gérée par un plugin tier ou pour ceux codés en dur, les éléments requis peuvent être définis en entrant le nom court (slug) du champ dans l'espace prévu à cet effet.\n"
+"\t\t\t"
+
+# @ post-type-requirements-checklist
+#: admin/includes/settings.php:977
+msgid "require Focus Keyword"
+msgstr "requiert Focus Keyword"
+
+# @ post-type-requirements-checklist
+#: admin/includes/settings.php:986
+msgid "require Meta Description"
+msgstr "requiert Meta Description"
+
+# @ post-type-requirements-checklist
+#: public/class-post-type-requirements-checklist.php:270
+#, php-format
+msgid "Plugin activated! Set content requirements for your site <strong><a href=\"%s\">here</a></strong>."
+msgstr "Plugin activé ! Définissez les contenus requis pour votre site <strong><a href=\"%s\">ici</a></strong>."
+
+# @ post-type-requirements-checklist
+#: public/class-post-type-requirements-checklist.php:295
+msgid "You have deleted the Requirements Checklist plugin. All settings associated with the plugin have been removed from the database."
+msgstr "Vous avez supprimé le plugin Requirements Checklist. Tous les réglages associés à ce plugin ont été retirés de la base de données."
+
+# @ post-type-requirements-checklist
+#. translators: plugin header field 'PluginURI'
+#. translators: plugin header field 'AuthorURI'
+#: post-type-requirements-checklist.php:0
+msgid "http://dauid.us"
+msgstr "http://dauid.us"
+
+# @ post-type-requirements-checklist
+#. translators: plugin header field 'Description'
+#: post-type-requirements-checklist.php:0
+msgid "Allows admins to set required content to be entered before a page/post or custom post type can be published."
+msgstr "Autorise les administrateurs à définir le contenu requis à entrer avant qu'une page/un billet ou un type de billet personnalisé ne soit publié."
+
+# @ post-type-requirements-checklist
+#. translators: plugin header field 'Author'
+#: post-type-requirements-checklist.php:0
+msgid "Dave Winter"
+msgstr "Dave Winter"
+
+# @ post-type-requirements-checklist
+#. translators: plugin header field 'Version'
+#: post-type-requirements-checklist.php:0
+msgid "2.3.1"
+msgstr ""
