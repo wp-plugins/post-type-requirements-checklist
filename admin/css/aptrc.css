@@ -22,9 +22,23 @@
 	cursor: default;
 	text-transform: capitalize;
 }
+.submitbox #requirements_list #custom-taxonomies input[type=checkbox] + label {
+	text-transform: none;
+}
 .submitbox #requirements_list input[type=checkbox] + label em {
 	text-transform: lowercase;
 	font-size: 11px;
+	color: #777;
+}
+.submitbox #requirements_list .list {
+	margin-bottom: -18px;
+}
+.submitbox #requirements_list .list em {
+	text-transform: lowercase;
+	font-size: 11px;
+	line-height: 14px;
+	display: block;
+	padding-left: 60px;
 	color: #777;
 }
 .submitbox #requirements_list input[type=checkbox] + label span {
@@ -46,8 +60,10 @@
 	background: url('../images/yes.png') no-repeat 0px 2px;
 }
 
-.submitbox #requirements_list #custom-taxonomies,
 .submitbox #requirements_list #builtin-taxonomies {
+	margin-top: 10px;
+}
+.submitbox #requirements_list #custom-taxonomies {
 	margin-top: 10px;
 }
 

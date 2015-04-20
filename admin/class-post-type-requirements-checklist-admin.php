@@ -666,8 +666,8 @@ class Post_Type_Requirements_Checklist_Admin {
 				 ( isset( $options['yoastseo_meta_description'] ) && ! empty( $options['yoastseo_meta_description'] )) ) {	
 
 				echo '<div id="custom-taxonomies">';	
-				echo '<span class="reqcb">';
-				echo '<input name="seo_checkbox" type="checkbox" onclick="return false;" onkeydown="return false;" /><label for="seo_checkbox"><span></span> ' . __( 'SEO by Yoast', 'aptrc' );
+				echo '<span class="reqcb list">';
+				echo '<input name="seo_checkbox" type="checkbox" onclick="return false;" onkeydown="return false;" /><label for="seo_checkbox"><span></span> ' . __( 'WordPress SEO by Yoast', 'aptrc' );
 
 				if ( isset( $options['yoastseo_focus_keyword'] ) && ! empty( $options['yoastseo_focus_keyword'] )) {
 					$keyword = 'y';
@@ -677,16 +677,9 @@ class Post_Type_Requirements_Checklist_Admin {
 					$meta = 'y';
 				} else { $meta = 'n'; }
 
-				if ( ( isset( $options['yoastseo_focus_keyword'] ) && ! empty( $options['yoastseo_focus_keyword'] )) & ( isset( $options['yoastseo_meta_description'] ) && ! empty( $options['yoastseo_meta_description'] )) ) {
-					$and = 'y';
-				} else { $and = 'n'; }
-
 				echo ' &nbsp; ';
 				if ( $keyword == 'y' ) {
 					echo '<em>'. __( 'Keyword', 'aptrc' ) .'</em>';
-				}
-				if ( $and == 'y' ) {
-					echo '<em> & </em>';
 				}
 				if ( $meta == 'y' ) {
 					echo '<em>'. __( 'Description', 'aptrc' ) .'</em>';
@@ -734,7 +727,92 @@ class Post_Type_Requirements_Checklist_Admin {
 		}
 
 
-		
+		/**
+		 * All In One SEO Pack
+		 * suggestion by Courtney Li-An (on WP support forums)
+		 *
+		 * @since 2.3
+		 */
+		if (class_exists('All_in_One_SEO_Pack')) {	
+			if ( ( isset( $options['allinone_title'] ) && ! empty( $options['allinone_title'] )) || 
+				 ( isset( $options['allinone_description'] ) && ! empty( $options['allinone_description'] )) || 
+				 ( isset( $options['allinone_keywords'] ) && ! empty( $options['allinone_keywords'] )) ) 
+			{	
+
+				echo '<div id="custom-taxonomies">';	
+				echo '<span class="reqcb list">';
+				echo '<input name="allinone_checkbox" type="checkbox" onclick="return false;" onkeydown="return false;" /><label for="allinone_checkbox"><span></span> ' . __( 'All In One SEO Pack', 'aptrc' );
+
+				if ( isset( $options['allinone_title'] ) && ! empty( $options['allinone_title'] )) {
+					$title = 'y';
+				} else { $title = 'n'; }
+
+				if ( isset( $options['allinone_description'] ) && ! empty( $options['allinone_description'] )) {
+					$desc = 'y';
+				} else { $desc = 'n'; }
+
+				if ( isset( $options['allinone_keywords'] ) && ! empty( $options['allinone_keywords'] )) {
+					$keywords = 'y';
+				} else { $keywords = 'n'; }
+
+				echo ' &nbsp; ';
+				if ( $title == 'y' ) {
+					echo '<em>'. __( 'Title', 'aptrc' ) .'</em>';
+				}
+				if ( $desc == 'y' ) {
+					echo '<em>'. __( 'Description', 'aptrc' ) .'</em>';
+				}
+				if ( $keywords == 'y' ) {
+					echo '<em>'. __( 'Keywords', 'aptrc' ) .'</em>';
+				}
+
+				echo '</label><br/>';
+				echo '</span>';
+				?>
+
+				<script>
+
+					function checkAioSEO() {
+
+						var title = '<?php echo $title; ?>';
+						var desc = '<?php echo $desc; ?>';
+						var keywords = '<?php echo $keywords; ?>';
+
+						// All In One Title field
+						var aioTitleElement = jQuery( "input[name=aiosp_title]" );
+						var aioTitle = aioTitleElement.val();
+						// All In One Description field
+						var aioDescElement = jQuery( "textarea[name=aiosp_description]" );
+						var aioDesc = aioDescElement.val();
+						// All In One Keywords field
+						var aioKeywordsElement = jQuery( "input[name=aiosp_keywords]" );
+						var aioKeywords = aioKeywordsElement.val();
+
+						if ( ( title == 'y' ) && ( aioTitle == '' ) || 
+							 ( desc == 'y' ) && ( aioDesc == '' ) ||
+							 ( keywords == 'y' ) && ( aioKeywords == '' ) ) 
+						{
+							jQuery( "input[type='checkbox'][name='allinone_checkbox']").prop('checked', false);
+						}	
+						else {
+							jQuery( "input[type='checkbox'][name='allinone_checkbox']").prop('checked', true);
+						}
+
+					}
+
+					// run when page first loads
+					jQuery( "input[type='checkbox'][name='allinone_checkbox']").prop('checked', false);
+					// checkaioSEO();
+					// set check time
+					setInterval(checkAioSEO,1000);
+					
+				</script>
+
+				<?php
+				echo '</div>';
+
+			}
+		}
 
 
 		echo '<span id="rlbot">' . __( 'Drafts may be saved above', 'aptrc' ) . '</span>';

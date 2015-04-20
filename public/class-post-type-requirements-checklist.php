@@ -20,7 +20,7 @@ class post_type_requirements_checklist {
 	 *
 	 * @var     string
 	 */
-	const VERSION = '2.3.2';
+	const VERSION = '2.4';
 
 	/**
 	 * Unique identifier for your plugin.

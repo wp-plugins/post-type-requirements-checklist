@@ -14,7 +14,7 @@
  * Plugin Name:       Requirements Checklist
  * Plugin URI:        http://dauid.us
  * Description:       Allows admins to set required content to be entered before a page/post or custom post type can be published.
- * Version:           2.3.2
+ * Version:           2.4
  * Author:            Dave Winter
  * Author URI:        http://dauid.us
  * Text Domain: 	  aptrc
