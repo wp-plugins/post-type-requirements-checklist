@@ -384,21 +384,19 @@ class post_type_requirements_checklist_settings {
 			}
 */
 
+			// section
+			add_settings_section(
+				'3rdparty' . $pt,
+				'<hr>' . __( '3rd Party Plugin Support', 'aptrc' ) .':',
+				'',
+				$section
+			);
+
 			// * @since 2.3
 			// 3RD PARTY PLUGIN SUPPORT
 
-			//if (class_exists('WPSEO_Utils')) {	
-				// section
-				add_settings_section(
-					'3rdparty' . $pt,
-					'<hr>' . __( '3rd Party Plugin Support', 'aptrc' ) .':',
-					'',
-					$section
-				);
-
-				do_action( 'ptrc_extend_it' );
-
-				// WP SEO by Yoast
+			// WP SEO by Yoast
+			if (class_exists('WPSEO_Utils')) {	
 				// focus keyword
 				add_settings_field(
 					'yoastseo_focus_keyword',
@@ -417,8 +415,41 @@ class post_type_requirements_checklist_settings {
 					'3rdparty' . $pt,
 					$args
 				);
-			//}
+			}
 
+
+/*
+			// All In One SEO
+			if (class_exists('All_in_One_SEO_Pack')) {	
+				// title
+				add_settings_field(
+					'allinone_title',
+					__( 'All In One SEO Pack', 'aptrc' ) .':',
+					array( $this, 'allinone_title_callback' ),
+					$section,
+					'3rdparty' . $pt,
+					$args
+				);
+				// description
+				add_settings_field(
+					'allinone_description',
+					'',
+					array( $this, 'allinone_description_callback' ),
+					$section,
+					'3rdparty' . $pt,
+					$args
+				);
+				// keywords
+				add_settings_field(
+					'allinone_keywords',
+					'',
+					array( $this, 'allinone_keywords_callback' ),
+					$section,
+					'3rdparty' . $pt,
+					$args
+				);
+			}
+*/
 
 			register_setting(
 				$section,
@@ -984,6 +1015,34 @@ class post_type_requirements_checklist_settings {
 
 		$checkhtml = '<input type="checkbox" id="yoastseo_meta_description" class="check" name="' . $output . '" value="1"' . checked( 1, $value, false ) . ' />';
 		$checkhtml .= '<label class="check" for="yoastseo_meta_description"> ' . __( 'require Meta Description', 'aptrc' ) . '</label>';
+		echo $checkhtml;
+	} // end 
+
+// All In One SEO Pack
+	public function allinone_title_callback( $args ) {
+		$output = $args[0].'[allinone_title]';
+		$value  = isset( $args[1]['allinone_title'] ) ? $args[1]['allinone_title'] : '';
+
+		$checkhtml = '<input type="checkbox" id="allinone_title" name="' . $output . '" value="1"' . checked( 1, $value, false ) . ' />';
+		$checkhtml .= '<label for="allinone_title"> ' . __( 'require Title', 'aptrc' ) . '</label>';
+		echo $checkhtml;
+	} // end 
+
+	public function allinone_description_callback( $args ) {
+		$output = $args[0].'[allinone_description]';
+		$value  = isset( $args[1]['allinone_description'] ) ? $args[1]['allinone_description'] : '';
+
+		$checkhtml = '<input type="checkbox" id="allinone_description" class="check" name="' . $output . '" value="1"' . checked( 1, $value, false ) . ' />';
+		$checkhtml .= '<label class="check" for="allinone_description"> ' . __( 'require Description', 'aptrc' ) . '</label>';
+		echo $checkhtml;
+	} // end 
+
+	public function allinone_keywords_callback( $args ) {
+		$output = $args[0].'[allinone_keywords]';
+		$value  = isset( $args[1]['allinone_keywords'] ) ? $args[1]['allinone_keywords'] : '';
+
+		$checkhtml = '<input type="checkbox" id="allinone_keywords" class="check" name="' . $output . '" value="1"' . checked( 1, $value, false ) . ' />';
+		$checkhtml .= '<label class="check" for="allinone_keywords"> ' . __( 'require Keywords', 'aptrc' ) . '</label>';
 		echo $checkhtml;
 	} // end 
 

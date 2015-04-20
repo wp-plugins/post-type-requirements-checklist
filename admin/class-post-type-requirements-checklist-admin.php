@@ -395,7 +395,7 @@ class Post_Type_Requirements_Checklist_Admin {
 						$cat_num_max = $options['categories_max_dropdown'];
 
 						if ( $cat_num == $cat_num_max ) {
-							$cat_num_html = ' &nbsp ' . __( 'exactly ', $this->plugin_slug) . '' .$cat_num_max . '';
+							$cat_num_html = ' &nbsp ' . __( 'exactly ', 'aptrc' ) . '' .$cat_num_max . '';
 							echo '<em>'.$cat_num_html.'</em>';
 						}
 						else if ( $cat_num_max == '1000' ) {
@@ -452,7 +452,7 @@ class Post_Type_Requirements_Checklist_Admin {
 						$tag_num_max = $options['tags_max_dropdown'];
 
 						if ( $tag_num == $tag_num_max ) {
-							$tag_num_html = ' &nbsp; ' . __( 'exactly ', $this->plugin_slug) . '' .$tag_num_max . '';
+							$tag_num_html = ' &nbsp; ' . __( 'exactly ', 'aptrc' ) . '' .$tag_num_max . '';
 							echo '<em>'.$tag_num_html.'</em>';
 						}
 						else if ( $tag_num_max == '1000' ) {
@@ -541,7 +541,7 @@ class Post_Type_Requirements_Checklist_Admin {
 							$cat_num_max = $options['hierarchical_max_dropdown_'.$x.''];
 
 							if ( $cat_num == $cat_num_max ) {
-								$cat_num_html = ' &nbsp ' . __( 'exactly ', $this->plugin_slug) . '' .$cat_num_max . '';
+								$cat_num_html = ' &nbsp ' . __( 'exactly ', 'aptrc' ) . '' .$cat_num_max . '';
 								echo '<em>'.$cat_num_html.'</em>';
 							}
 							else if ( $cat_num_max == '1000' ) {
@@ -598,7 +598,7 @@ class Post_Type_Requirements_Checklist_Admin {
 							$tag_num_max = $options['flat_max_dropdown_'.$x.''];
 
 							if ( $tag_num == $tag_num_max ) {
-								$tag_num_html = ' &nbsp; ' . __( 'exactly ', $this->plugin_slug) . '' .$tag_num_max . '';
+								$tag_num_html = ' &nbsp; ' . __( 'exactly ', 'aptrc' ) . '' .$tag_num_max . '';
 								echo '<em>'.$tag_num_html.'</em>';
 							}
 							else if ( $tag_num_max == '1000' ) {
@@ -662,7 +662,8 @@ class Post_Type_Requirements_Checklist_Admin {
 		 * @since 2.3
 		 */
 		if (class_exists('WPSEO_Utils')) {	
-			if ( ( isset( $options['yoastseo_focus_keyword'] ) && ! empty( $options['yoastseo_focus_keyword'] )) || ( isset( $options['yoastseo_meta_description'] ) && ! empty( $options['yoastseo_meta_description'] )) ) {	
+			if ( ( isset( $options['yoastseo_focus_keyword'] ) && ! empty( $options['yoastseo_focus_keyword'] )) || 
+				 ( isset( $options['yoastseo_meta_description'] ) && ! empty( $options['yoastseo_meta_description'] )) ) {	
 
 				echo '<div id="custom-taxonomies">';	
 				echo '<span class="reqcb">';
@@ -682,13 +683,13 @@ class Post_Type_Requirements_Checklist_Admin {
 
 				echo ' &nbsp; ';
 				if ( $keyword == 'y' ) {
-					echo '<em>'. __( 'Keyword', $this->plugin_slug) .'</em>';
+					echo '<em>'. __( 'Keyword', 'aptrc' ) .'</em>';
 				}
 				if ( $and == 'y' ) {
 					echo '<em> & </em>';
 				}
 				if ( $meta == 'y' ) {
-					echo '<em>'. __( 'Description', $this->plugin_slug) .'</em>';
+					echo '<em>'. __( 'Description', 'aptrc' ) .'</em>';
 				}
 
 				echo '</label><br/>';
@@ -731,6 +732,9 @@ class Post_Type_Requirements_Checklist_Admin {
 
 			}
 		}
+
+
+		
 
 
 		echo '<span id="rlbot">' . __( 'Drafts may be saved above', 'aptrc' ) . '</span>';
