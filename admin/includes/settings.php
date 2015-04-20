@@ -418,7 +418,7 @@ class post_type_requirements_checklist_settings {
 			}
 
 
-/*
+
 			// All In One SEO
 			if (class_exists('All_in_One_SEO_Pack')) {	
 				// title
@@ -449,7 +449,7 @@ class post_type_requirements_checklist_settings {
 					$args
 				);
 			}
-*/
+
 
 			register_setting(
 				$section,
