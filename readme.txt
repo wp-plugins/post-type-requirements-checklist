@@ -32,6 +32,9 @@ Requirements Checklist works with multisite networks and allows users to define 
 
 As of version 2.3.1, Requirements Checklist has support for localization.  To translate this plugin into your language, please contact the author.
 
+Translators:
+French - Jean-Michel Meyer (Li-An)
+
 == Installation ==
 
 Installation from zip:
